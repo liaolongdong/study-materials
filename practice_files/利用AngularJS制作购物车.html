@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>利用AngularJS设计购物车</title>
+	<script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+	<script>
+		function CartController($scope){
+			//定义一个临时对象
+			$scope.bill = {};
+			$scope.items = [
+				{title : 'Paint pots', quantity : 8, price : 3.95},
+				{title : 'Polka dots', quantity : 12, price : 12.95},
+				{title : 'Pebbles', quantity : 5, price : 6.59}
+			];
+			//删除当前商品
+			$scope.remove = function(index){
+				$scope.items.splice(index,1);
+			}
+			//性能比较低
+			/*//计算总价
+			$scope.totalCart = function(){
+				var total = 0;
+				for(var i = 0,len = $scope.items.length;i < len;i ++){
+					total = total + $scope.items[i].price * $scope.items[i].quantity;
+				}
+				return total;
+			}
+			//判断是否符合打折要求
+			function calculateDiscount(newValue,oldValue,scope){
+				$scope.bill.discount = newValue > 100 ? 10 : 0;
+			}
+			//计算打折后的总价
+			$scope.subTotal = function(){
+				return $scope.totalCart() - $scope.bill.discount;
+			}
+			//监测total值的变化
+			$scope.$watch($scope.totalCart,calculateDiscount);*/
+
+			//性能良好
+			var calculateTotal = function(){
+				var total = 0;
+				for(var i = 0, len = $scope.items.length;i < len; i ++){
+					total = total + $scope.items[i].price * $scope.items[i].quantity;
+				}
+				$scope.bill.total = total;
+				$scope.bill.discount = total > 100 ? 10 : 0;
+				$scope.bill.subtotal = total - $scope.bill.discount;
+			};
+
+			$scope.$watch('items',calculateTotal,true);
+		}
+
+	</script>
+</head>
+<body ng-controller="CartController">
+	<h1>You Orders</h1>
+	<div ng-repeat="item in items">
+		<span>Product Name : {{item.title}} || </span>
+		<span>Product counter : <input type="text" ng-model="item.quantity">  ||  </span>
+		<span>Product Price : {{item.price | currency}} || </span>
+		<span>Product total : {{item.price * item.quantity | currency}} || </span>
+		<button ng-click="remove($index)">Remove</button>
+	</div>
+	<!-- <div><span>Total : </span><span ng-bind="totalCart() | currency"></span></div>
+	<div><span>Discount : </span><span ng-bind="bill.discount | currency"></span></div>
+	<div><span>Subtotal : </span><span ng-bind="subTotal() | currency"></span></div> -->
+
+	<div><span>Total : </span><span ng-bind="bill.total | currency"></span></div>
+	<div><span>Discount : </span><span ng-bind="bill.discount | currency"></span></div>
+	<div><span>Subtotal : </span><span ng-bind="bill.subtotal | currency"></span></div>
+	<div><span>{{12.6 | currency | number : 0}}</span></div>
+	<div><span>{{1458128524268 | date}}</span></div>
+</body>
+</html>

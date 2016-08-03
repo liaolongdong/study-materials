@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>利用闭包生成唯一页面中的ID</title>
+	<script>
+		var uniqueId = (function(){
+			var num = 0;
+			return function() {
+				num ++;
+				// console.log(num);
+				return num;
+			}
+		})();
+
+		console.log(uniqueId());
+		console.log(uniqueId());
+		console.log(uniqueId());
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

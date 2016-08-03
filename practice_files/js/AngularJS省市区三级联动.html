@@ -1,0 +1,45 @@
+//获取省市区
+	function addressDataInit(province_code, city_code, district_code) {
+		base_set_sys.getRegion(null,function(data){
+			$scope.regionData = data;
+
+	   		for(var i = 0,l = $scope.regionData.length;i < l;i ++) {
+	   			if($scope.regionData[i].id == province_code) {
+	   				$scope.citys = $scope.regionData[i].children;
+	   				for(var a = 0,b = $scope.citys.length; a < b; a ++) {
+	   					if($scope.citys[a].id == city_code) {
+	   						$scope.districts = $scope.citys[a].children;
+	   						$scope.selectedProvince = province_code;
+							$scope.selectedCity = city_code;
+							$scope.selectedDistrict = district_code;
+							return;
+	   					}
+	   				}
+	   			}
+	   		};
+	   		$scope.citys = $scope.regionData[0].children;
+			$scope.districts = $scope.citys[0].children;
+		});
+	};
+
+	$scope.$watch("selectedProvince", function (newValue, oldValue) {
+		if(Boolean(newValue) && Boolean(oldValue) && newValue != oldValue) {
+			var i = 0, l = $scope.regionData.length;
+			while(i < l && $scope.regionData[i].id != newValue) {
+				i ++;
+			};
+			console.log($scope.regionData[i].id);
+			$scope.citys = angular.copy($scope.regionData[i].children);
+		}
+	});
+
+	$scope.$watch("selectedCity", function (newValue, oldValue) {
+		if(Boolean(newValue) && Boolean(oldValue) && newValue != oldValue) {
+			var i = 0,l = $scope.citys.length;
+			while(i<l&&$scope.citys[i].id != newValue) {
+				i++;
+			};
+			console.log($scope.citys[i].id);
+			$scope.districts = angular.copy($scope.citys[i].children);
+		}
+	});

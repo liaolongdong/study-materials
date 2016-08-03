@@ -1,0 +1,33 @@
+<script>
+	var proto = Object.create(HTMLElement.prototype);
+	proto.createdCallback = function(){
+		this.innerHTML = 'Hello,<b>' + (this.getAttribute('name') || '?') + '</b>';
+	}
+	document.registerElement('say-hi',{prototype: proto});
+</script>
+
+<template id="t">
+	<style>
+		::content > * {
+			color: red;
+		};
+	</style>
+	<span>I'm a shadow-element using Shadow Dom!</span>
+	<content></content>
+</template>
+
+<script>
+	(function(){
+		var importDoc = document.currentScript.ownerDocument;
+		var proto2 =Object.create(HTMLElement.prototype);
+		proto2.createdCallback = function(){
+			var template = inportDoc.querySelector('#t');
+			var clone = document.importNode(template.content,true);
+			var root = this.createShadowRoot();
+			root.appendChild(clone);
+			console.log(this);
+		};
+
+		document.registerElement('shadow-element',{prototype:proto2});
+	})()
+</script>

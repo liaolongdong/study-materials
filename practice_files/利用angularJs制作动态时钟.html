@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>利用AngularJS制作动态时钟</title>
+	<script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+	<script>
+		angular.module('timeExampleModule',[]).
+			factory('time',function($timeout){
+				var time = {};
+				(function tick(){
+					time.now = new Date().toString();
+					$timeout(tick,1000);
+				})();
+				return time;
+			});
+
+		function ClockCtrl($scope,time){
+			$scope.time = time;
+		}
+
+		/*var $injector = angular.injector('timeExampleModule');
+		console.log($injector);
+		var time1 = $injector.get(time);
+		console.log(time1);*/
+	</script>
+</head>
+<body ng-app="timeExampleModule">
+	<div ng-controller="ClockCtrl">
+		Current Time : {{time.now}}
+	</div>
+</body>
+</html>

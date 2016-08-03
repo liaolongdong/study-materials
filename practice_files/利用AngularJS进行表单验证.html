@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>Angular表单验证</title>
+	<style rel="stylesheet" href="css/bootstrap.css"></style>
+	<script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+	<script>
+		function AddUserCtrl($scope){
+			$scope.message = '';
+
+			$scope.addUser = function(){
+				$scope.message = 'Thanks, ' + $scope.user.name + ' we added you!Your sign up email is ' + $scope.user.email + '.';
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="row">
+		<form action="" class="form-horizental" name="addUserForm" ng-controller="AddUserCtrl">
+			<div class="form-group">
+				<label for="" class="col-md-2">用户名：</label>
+				<div class="col-md-10">
+					<input type="text" class="form-control" ng-model="user.name" required>
+				</div>
+			</div>
+			<!-- <div class="form-group">
+				<label for="" class="col-md-2">用户名：</label>
+				<div class="col-md-10">
+					<input type="text" class="form-control" ng-model="user.email" required>
+				</div>
+			</div> -->
+			<div class="form-group">
+				<label for="" class="col-md-2">邮 箱：</label>
+				<div class="col-md-10">
+					<input type="email" class="form-control" ng-model="user.email">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-md-2">年 龄：</label>
+				<div class="col-md-10">
+					<input type="num" class="form-control" ng-model="user.age" ng-maxlength="3" ng-min="1" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<button ng-click="addUser()" ng-disabled="!addUserForm.$valid">submit</button>
+			</div>
+			<div ng-show="message">{{message}}</div>
+		</form>
+	</div>
+</body>
+</html>

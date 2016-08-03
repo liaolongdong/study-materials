@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>利用AngularJS设计简易计算器</title>
+	<script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+	<script>
+		function StartUpCtrl($scope){
+			$scope.computeNeeded = function(){
+				$scope.needed = $scope.startingEstimate * 10;
+			};
+
+			$scope.requestFunding = function(){
+				window.alert('Soory,please get more customer first!');
+			};
+
+			$scope.reset = function(){
+				$scope.startingEstimate = 0;
+			};
+		}
+
+	</script>
+</head>
+<body>
+	<form ng-submit="requestFunding()" ng-controller="StartUpCtrl">
+		Starting : <input type="text" ng-change="computeNeeded()" ng-model="startingEstimate">
+		Recommendation : {{needed}}
+		<button>Fund my starup!</button>
+		<button ng-click="reset()">Reset</button>
+	</form>
+</body>
+</html>
