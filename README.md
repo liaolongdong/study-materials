@@ -7,3 +7,4 @@
 - [gulp详细入门教程](http://www.cnblogs.com/fengyuqing/p/5332112.html "gulp详细入门教程")
 - [React_webpack教程](https://fakefish.github.io/react-webpack-cookbook/Introduction-to-Webpack.html "React_webpack教程")
 - [webpack一小时包教会](http://www.w2bc.com/Article/50764 "webpack一小时包教会")
+- [webpack配置](https://wohugb.gitbooks.io/webpack/content/index.html "webpack配置")
