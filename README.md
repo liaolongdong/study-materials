@@ -9,7 +9,7 @@
 - [ECMAScript 6入门 （阮一峰）](http://es6.ruanyifeng.com "ECMAScript 6入门 （阮一峰）")  
 
 ## jQuery及jQuery常用插件
-- [拖拽排序jQuery.dragsort](http://cmsblogs.com/?p=1157 "拖拽排序jQuery.dragsort")
+- [拖拽排序jQuery.dragsort（中文文档）](http://cmsblogs.com/?p=1157 "拖拽排序jQuery.dragsort") [官网](http://dragsort.codeplex.com/ "官网")
 
 ## nodeJS
 - [node入门](http://www.nodebeginner.org/index-zh-cn.html "node入门")
@@ -22,4 +22,9 @@
 - [webpack配置](https://wohugb.gitbooks.io/webpack/content/index.html "webpack配置")
 - [彻底解决 webpack 打包文件体积过大](http://www.jianshu.com/p/a64735eb0e2b "彻底解决 webpack 打包文件体积过大")
 - [Webpack傻瓜指南（二）开发和部署技巧](https://zhuanlan.zhihu.com/p/20397902 "Webpack傻瓜指南（二）开发和部署技巧")
+
+## 常用工具
+- [diffchecker（在线文件对比工具）](https://www.diffchecker.com/ "diffchecker（在线文件对比工具）")
+- [JSON数据格式化](http://www.bejson.com/jsonviewernew/ "JSON数据格式化")
+- [二维码生成器](http://cli.im/ "二维码生成器")
 
