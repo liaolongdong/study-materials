@@ -12,7 +12,10 @@
 - [拖拽排序jQuery.dragsort（中文文档）](http://cmsblogs.com/?p=1157 "拖拽排序jQuery.dragsort") [官网](http://dragsort.codeplex.com/ "官网")
 
 ## nodeJS
-- [node入门](http://www.nodebeginner.org/index-zh-cn.html "node入门")
+* [node入门（很经典，通俗易懂）](http://www.nodebeginner.org/index-zh-cn.html "node入门（很经典，通俗易懂）")
+* [javascript标准参考教程 - node.js（阮一峰）](http://javascript.ruanyifeng.com/#toc10 "javascript标准参考教程 - node.js（阮一峰）")
+* [nodejs官方文档（英文版v6.5.0）](https://nodejs.org/dist/latest-v6.x/docs/api/ "nodejs官方文档（英文版v6.5.0）")
+* [nodejs API文档（中文版v4.2.4）](http://nodeapi.ucdok.com/#/api/ "nodejs API文档（中文版v4.2.4）")
 
 ## 前端自动化构建工具等  
 - [阮一峰git教程](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html "阮一峰git教程")
