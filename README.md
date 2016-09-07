@@ -11,6 +11,9 @@
 ## jQuery及jQuery常用插件
 - [拖拽排序jQuery.dragsort（中文文档）](http://cmsblogs.com/?p=1157 "拖拽排序jQuery.dragsort") [官网](http://dragsort.codeplex.com/ "官网")
 
+## vue.js
+- [vue.js——60分钟快速入门](http://www.cnblogs.com/keepfool/p/5619070.html "vue.js——60分钟快速入门")
+
 ## nodeJS
 * [node入门（很经典，通俗易懂）](http://www.nodebeginner.org/index-zh-cn.html "node入门（很经典，通俗易懂）")
 * [javascript标准参考教程 - node.js（阮一峰）](http://javascript.ruanyifeng.com/#toc10 "javascript标准参考教程 - node.js（阮一峰）")
