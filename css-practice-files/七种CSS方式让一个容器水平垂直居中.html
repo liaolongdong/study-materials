@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>七种CSS方式让一个容器水平垂直居中</title>
+	<style>
+		/*方法一 样式*/
+		.outer-div1{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			background: blue;
+		}
+		.inner-div1{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			width: 100px;
+			height: 100px;
+			background: green;
+		}
+
+		/*方法二 样式*/
+		.outer-div2{
+			width: 200px;
+			height: 200px;
+			display: table-cell;
+			text-align: center;
+			vertical-align: middle;
+			background: blue;
+		}
+		.inner-div2{
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			vertical-align: middle;
+			background: green;
+		}
+
+		/*方法三 样式*/
+		.outer-div3{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			background: blue;
+		}
+		.inner-div3{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 100px;
+			height: 100px;
+			background: green;
+		}
+
+		/*方法四 样式*/
+		.outer-div4{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 200px;
+			height: 200px;
+			background: blue;
+		}
+		.inner-div4{
+			width: 100px;
+			height: 100px;
+			background: green;
+		}
+
+		/*方法五 样式*/
+		.outer-div5{
+			display: flex;
+			width: 200px;
+			height: 200px;
+			background: blue;
+		}
+		.inner-div5{
+			margin: auto;
+			width: 100px;
+			height: 100px;
+			background: green;
+		}
+
+		/*方法六 样式*/
+		.outer-div6{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			background: blue;
+		}
+		/*方法六的第一种方式*/
+		.inner-div6{
+			position: absolute;
+			top: 50px;
+			left: 50px;
+			width: 100px;
+			height: 100px;
+			background: green;
+		}
+		/*方法六的第二种方式*/
+		/*.inner-div6{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -50px;
+			margin-left: -50px;
+			background: green;
+		}*/
+	</style>
+</head>
+<body>
+	<!-- 参考资料：http://www.cnblogs.com/xianyulaodi/p/5863305.html -->
+
+	<h3>方法一：子元素使用<code>position:absolute + margin:auto</code></h3>
+	<div class="outer-div1">
+		<div class="inner-div1"></div>
+	</div>
+	<h4>兼容性：主流浏览器都支持，IE6不支持</h4>
+	<hr>
+
+	<h3>方法二：父元素使用<code>dispaly:table-cell + text-align:center + vertical-align:middle</code></h3>
+	<div class="outer-div2">
+		<div class="inner-div2"></div>
+	</div>
+	<h4>兼容性：由于使用了display:table-cell的原因，不支持IE6/7</h4>
+	<hr>
+
+	<h3>方法三：子元素使用<code>position:absolute + transform:translate(x,y)</code></h3>
+	<div class="outer-div3">
+		<div class="inner-div3"></div>
+	</div>
+	<h4>兼容性：IE9以下不支持transform，手机端表示比较好</h4>
+	<hr>
+
+	<h3>方法四：父元素使用<code>display:flex + align-item:center + justify-content:center</code></h3>
+	<div class="outer-div4">
+		<div class="inner-div4"></div>
+	</div>
+	<h4>兼容性：移动端首选方式</h4>
+	<hr>
+
+	<h3>方法五：父元素使用position:flex，子元素使用margin:auto</h3>
+	<div class="outer-div5">
+		<div class="inner-div5"></div>
+	</div>
+	<h4>兼容性：移动端使用比较好</h4>
+	<hr>
+
+	<h3>方法六：父元素使用position:relative，子元素使用position:absolute</h3>
+	<div class="outer-div6">
+		<div class="inner-div6"></div>
+	</div>
+	<h4>兼容性：适合所有浏览器，缺点：子元素必须是已知宽高</h4>
+	<hr>
+
+
+</body>
+</html>
