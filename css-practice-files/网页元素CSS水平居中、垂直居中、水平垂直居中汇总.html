@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网页元素CSS水平居中、垂直居中、水平垂直居中汇总</title>
+	<meta name="description" content="网页元素CSS水平居中、垂直居中、水平垂直居中汇总">
+	<meta name="keyword" content="css，水平居中，垂直居中，水平垂直居中">
+</head>
+<body>
+	<h3>水平居中：行内元素解决方案</h3>
+	<h4>方法：只需要把行内元素放在一个属性display为block的父元素中，并且把父元素的text-align属性设置成center</h4>
+	<div style="display:block;text-align:center;background: blue">
+		<span style="background: green;">行内元素水平居中</span>
+	</div>
+	<hr>
+
+	<h3>水平居中：块状元素解决方案</h3>
+	<h4>方法：子块元素使用margin:0 auto;</h4>
+	<h5 style="background: yellow;">缺点：只适合已知宽高的块元素</h5>
+	<div style="background: blue;">
+		<div style="margin:10px auto;width:100px;height:100px;background: green;">水平居中块状元素</div>
+	</div>
+	<hr>
+
+	<h3>水平居中：多个块状元素解决方案</h3>
+	<h4>方法：将子元素的display属性设置为inline-block，并且把父元素的text-align属性设置成center</h4>
+	<div style="text-align:center;background: blue;">
+		<div style="display:inline-block;width:100px;height:100px;background: green;">水平居中多个块状元素1</div>
+		<div style="display:inline-block;width:100px;height:100px;background: green;">水平居中多个块状元素2</div>
+		<div style="display:inline-block;width:100px;height:100px;background: green;">水平居中多个块状元素3</div>
+		<div style="display:inline-block;width:100px;height:100px;background: green;">水平居中多个块状元素4</div>
+	</div>
+	<hr>
+
+	<h3>水平居中：多个块状元素解决方案(使用flexbox布局实现)</h3>
+	<h4>方法：把父元素设置成：dispaly:flex;justify-content:center;</h4>
+	<h5 style="background: yellow;">缺点：CSS3弹性布局低版本浏览器不兼容，适合在移动端使用</h5>
+	<div style="display:flex;justify-content:center;background: blue;">
+		<div style="margin-right:20px;width:100px;height:100px;background: green;">水平居中多个块状元素1</div>
+		<div style="margin-right:20px;width:100px;height:100px;background: green;">水平居中多个块状元素2</div>
+		<div style="margin-right:20px;width:100px;height:100px;background: green;">水平居中多个块状元素3</div>
+		<div style="margin-right:20px;width:100px;height:100px;background: green;">水平居中多个块状元素4</div>
+	</div>
+	<hr>
+
+	<h3>垂直居中：单行的行内元素解决方案</h3>
+	<h4>方法：将要垂直居中的子元素行内元素的height和line-height属性的值设置成和父元素一样的高度即可</h4>
+	<div style="height:100px; background: blue;">
+		<span style="line-height:100px; background: green;">垂直居中单行的行内元素</span>
+		<span style="line-height:100px; background: green;">垂直居中单行的行内元素</span>
+		<span style="line-height:100px; background: green;">垂直居中单行的行内元素</span>
+	</div>
+	<hr>
+
+	<h3>垂直居中：多行的行内元素解决方案</h3>
+	<h4>方法：组合使用display:table-cell和vertical-align:middle属性来定义需要居中的元素的父元素</h4>
+	<div style="height:100px;display:table-cell;vertical-align:middle; background: blue;">
+		<span style="background: green;">垂直居中多行行内元素</span>
+		<span style="background: green;">垂直居中多行行内元素</span>
+		<span style="background: green;">垂直居中多行行内元素</span>
+		<span style="background: green;">垂直居中多行行内元素</span>
+	</div>
+	<hr>
+
+	<h3>垂直居中：已知高度的块状元素解决方案</h3>
+	<h4>方法：将父元素设置成：position:relative，子元素：position:absolute;top:50%;margin-top:-(子元素高度的一半)</h4>
+	<div style="position: relative; height: 200px; background: blue;">
+		<div style="position:absolute;height:100px;top:50%;margin-top:-50px;background:green;">垂直居中已知高度的块状元素</div>
+	</div>
+	<hr>
+
+	<h3>垂直居中：未知高度的块状元素解决方案</h3>
+	<h4>方法：将父元素设置成：position:relative，子元素使用：position:absolute; top:50%; transform:translateY(-50%)</h4>
+	<h5 style="background: yellow;">缺点：使用了CSS3属性transform，IE9以下版本不兼容</h5>
+	<div style="position: relative; height: 100px; background: blue;">
+		<div style="position:absolute;top:50%;transform:translateY(-50%);background:green;">垂直居中未知高度的块状元素</div>
+	</div>
+	<hr>
+
+	<h3>水平垂直居中：已知宽度和高度的块状元素解决方案1</h3>
+	<h4>方法：将父元素设置成：position:relative，子元素使用：position:absolute;top:0;left:0;left:0;right:0;bottom:0;margin:auto;</h4>
+	<div style="position: relative; background: blue; width: 200px; height: 200px;">
+		<div style="position:absolute;margin:auto;left:0;top:0;right:0;bottom:0;width:100px;height:100px;background:green;">水平垂直居中已知宽度和高度的块状元素</div>
+	</div>
+	<hr>
+
+	<h3>水平垂直居中：已知宽度和高度的块状元素解决方案2</h3>
+	<h4>方法：父元素设置成：position:relative，子元素使用：position:absolute;top:50%;left:50%;margin-top:-(子元素高度的一半);margin-left:-(子元素宽度的一半);</h4>
+	<div style="position: relative;width: 200px;height: 200px;background: blue;">
+		<div style="position:absolute;width:100px;height:100px;top:50%;left:50%;margin-top:-50px;margin-left:-50px;background:green;">水平垂直居中已知宽度和高度的块状元素</div>
+	</div>
+	<hr>
+
+	<h3>水平垂直居中：未知宽度和高度的块状元素解决方案</h3>
+	<h4>方法：父元素设置成：position:relative，子元素使用：position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)</h4>
+	<h5 style="background: yellow;">缺点：使用了CSS3属性transform，IE9以下不兼容</h5>
+	<div style="position: relative; width: 200px;height: 200px; background: blue;">
+		<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:green;">水平垂直居中未知宽度和高度的块状元素</div>
+	</div>
+	<hr>
+
+	<h3>水平垂直居中：使用flex布局实现</h3>
+	<h4>方法：父元素使用：display:flex; align-items:center; justify-content:center;</h4>
+	<h5 style="background: yellow;">缺点：使用了flex布局，低版本浏览器不兼容，适合移动端（首选）</h5>
+	<div style="display:flex;justify-content:center;align-items:center;width:200px;height:200px;background: blue;">
+		<div style="background: green;width: 100px;">水平垂直居中未知宽度和高度的块状元素</div>
+	</div>
+	<hr>
+</body>
+</html>

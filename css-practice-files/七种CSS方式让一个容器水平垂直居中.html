@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>七种CSS方式让一个容器水平垂直居中</title>
+	<meta name="description" content="网页元素CSS水平垂直居中">
+	<meta name="keyword" content="水平垂直居中">
 	<style>
 		/*方法一 样式*/
 		.outer-div1{
@@ -111,10 +113,31 @@
 			margin-left: -50px;
 			background: green;
 		}*/
+
+		/*方法七 样式*/
+		.table{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			display: block;
+			background: blue;
+		}
+		.table-cell{
+			position: relative;
+			top: 50%;
+			left: 50%;
+			display: inline-block;
+		}
+		.content{
+			position: relative;
+			top: -50%;
+			left: -50%;
+			background: green;
+		}
 	</style>
 </head>
 <body>
-	<!-- 参考资料：http://www.cnblogs.com/xianyulaodi/p/5863305.html -->
+	<i>参考资料：http://www.cnblogs.com/xianyulaodi/p/5863305.html</i>
 
 	<h3>方法一：子元素使用<code>position:absolute + margin:auto</code></h3>
 	<div class="outer-div1">
@@ -158,6 +181,14 @@
 	<h4>兼容性：适合所有浏览器，缺点：子元素必须是已知宽高</h4>
 	<hr>
 
+	<h3>方法七：兼容低版本浏览器，不固定宽高</h3>
+	<div class="table">
+		<div class="table-cell">
+			<div class="content">不固定宽高，自适应</div>
+		</div>
+	</div>
+	<h4>兼容性：兼容低版本浏览器，不固定宽高</h4>
+	<hr>
 
 </body>
 </html>
