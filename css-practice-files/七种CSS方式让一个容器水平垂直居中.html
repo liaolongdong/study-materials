@@ -115,24 +115,30 @@
 		}*/
 
 		/*方法七 样式*/
-		.table{
-			position: relative;
-			width: 200px;
-			height: 200px;
-			display: block;
-			background: blue;
+		/*兼容IE6/7浏览器，不固定宽高，CSS属性前面的*号是用来兼容IE6/7的，其它浏览器会直接忽略带*号的属性*/
+		.table {
+		    height: 200px;/*高度值不能少*/
+		    width: 200px;/*宽度值不能少*/
+		    display: table;
+		    position: relative;
+		    /*float:left;*/
+		    background: blue;
+		}      
+		.table-cell {
+		    display: table-cell;
+		    vertical-align: middle;
+		    text-align: center;        
+		    *position: absolute;
+		    /*padding: 10px;*/
+		    *top: 50%;
+		    *left: 50%;
 		}
-		.table-cell{
-			position: relative;
-			top: 50%;
-			left: 50%;
-			display: inline-block;
-		}
-		.content{
-			position: relative;
-			top: -50%;
-			left: -50%;
-			background: green;
+		.content {
+		    *position:relative;
+		    *top: -50%;
+		    *left: -50%;
+		     display: inline-block;
+		     background: green;
 		}
 	</style>
 </head>
@@ -181,7 +187,7 @@
 	<h4>兼容性：适合所有浏览器，缺点：子元素必须是已知宽高</h4>
 	<hr>
 
-	<h3>方法七：兼容低版本浏览器，不固定宽高</h3>
+	<h3>方法七：兼容低版本浏览器，不固定宽高，CSS属性前面的*号是用来兼容IE6/7的，其它浏览器会直接忽略带*号的属性</h3>
 	<div class="table">
 		<div class="table-cell">
 			<div class="content">不固定宽高，自适应</div>
@@ -189,6 +195,6 @@
 	</div>
 	<h4>兼容性：兼容低版本浏览器，不固定宽高</h4>
 	<hr>
-
+	
 </body>
 </html>
