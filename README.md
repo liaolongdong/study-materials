@@ -7,6 +7,7 @@
 - [JavaScript 参考文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array "JavaScript 参考文档")
 - [JavaScript 标准参考教程（alpha）（阮一峰）](http://javascript.ruanyifeng.com/ "JavaScript 标准参考教程（alpha）（阮一峰）")
 - [ECMAScript 6入门 （阮一峰）](http://es6.ruanyifeng.com "ECMAScript 6入门 （阮一峰）")  
+- [学用 JavaScript 设计模式](http://www.oschina.net/translate/learning-javascript-design-patterns "学用JavaScript设计模式")
 
 ## jQuery及jQuery常用插件
 - [拖拽排序jQuery.dragsort（中文文档）](http://cmsblogs.com/?p=1157 "拖拽排序jQuery.dragsort") [官网](http://dragsort.codeplex.com/ "官网")
