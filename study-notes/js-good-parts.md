@@ -156,7 +156,7 @@ myObj.double(); // 以方法的形式调用double函数
 myObj.value; // 4
 ```
 - 构造函数调用模式  
-如果函数前面带上new来调用，那么this指向该新对象上，使用new调用函数也会改变return语句的行为，如果return的是对象则返回该对象，否则，返回新创建的对象。
+如果函数前面带上new来调用，那么this指向该新对象上，使用new调用函数也会改变return语句的行为，如果return的是对象则返回该对象，否则，返回（this）新创建的对象。
 ```javascript
 // 创建一个构造函数，约定构造函数使用大写开头
 function Fun(string){
@@ -210,10 +210,67 @@ test.apply(this); // this指向全局对象（window对象）
 
 // 结论：通俗的说，就是把某个方法放到apply方法的第一个参数（thisObj）作用域下执行。
 ```
+3、arguments类数组参数对象
+arguments对象是一个类数组对象，只有length属性，没有数组相关方法。它可以获取函数调用时的参数列表。该对象只能在函数内部使用。
+```javascript
+var sum = function(){
+	var sum = 0;
+	for(var i = 0, len = arguments.length; i < len; i ++){
+		sum += arguments[i];
+	}
+	return sum;
+};
+console.log(sum(1, 2, 3, 4, 5)); // 15
+```
+4、异常
+JavaScript提供了一套异常处理机制。
+```javascript
+var add = function(a, b){
+	if(typeof a !== 'number' || typeof b !== 'number'){
+		throw {
+			name: 'TypeError',
+			message: 'add needs numbers'
+		};
+	}
+	return a + b;
+};
+add(1, 2); // 3
+add(1, '2'); // 报错
+add(); // 报错
 
+// try_catch代码块
+var try_it = function(){
+	try{
+		add('one');
+	}catch(e){
+		console.log(e.name + ' : ' + e.message);
+	}
+};
+try_id(); // TypeError : add needs numbers
+```
+5、给类型添加方法
+通过给Object.prototype添加方法使得该方法对所有对象可用。  
+通过给Function.prototype添加方法使得该方法对所有函数可用。
+```javascript
+// 给Function.prototype添加方法
+Function.prototype.method = function(name, func){
+	this.prototype[name] = func;
+	return this;
+};
+// 给Number对象添加一个integer方法
+Number.method('integer', function(){
+	var funName = this < 0 ? 'ceil' : 'floor'; 
+	return Math[funName](this);
+});
+(10/4).integer(); // 2
+(-10/4).integer(); // -2
 
-
-
+// 给String对象添加一个移除两端字符串的方法
+String.method('trim', function(){
+	return this.replace(/^\s+|\s+$/, '');
+});
+'  Better '.trim(); // 'Better'
+```
 
 
 
