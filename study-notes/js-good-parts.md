@@ -26,20 +26,21 @@ var isNaN = isNaN(number); // 用isNaN方法判断是否为数字，不是数字
 typeof运算符产生的值有：'number','string','boolean','undefined','function','object'.  
 '+' 运算符只有在操作符两端操作数都为数字时进行相加，其他情况是字符串连接。  
 '/' 运算符可能产生一个非整数结果，即使两个运算数都是整数。  
-'&&' 运算符使用技巧：当&&的第一个运算符的值为假时，取第一个运算数的值，反之，取第二个的值。
+'&&' 运算符使用技巧：当&&的第一个运算数的值为假时，取第一个运算数的值，反之，取第二个的值。
 ```javascript
 0 && 1; // 0
 false && true; // false
 true && false; // false
 1 && 2; // 2
 ```
-|| 运算符使用技巧：当第一个运算符的值为为真时，取第一个运算数的值，反之，取第二个的值。一般使用这种技巧设置默认值。
+|| 运算符使用技巧：当第一个运算数的值为为真时，取第一个运算数的值，反之，取第二个的值。一般使用这种技巧设置默认值。
 ```javascript
 undefined || 0; //0
 null || {}; // {}
 0 || []; // []
 1 || true; // 1
 ```
+以上技巧利用了&&和||的短路原理，&&运算符左边的值为假时，不再执行右边的值，||运算符左边的值为真，则不再执行右边的值。
 ## 对象  
 1、使用字面量创建对象  
 对象属性值可以使用undefined以外的任何值
@@ -89,13 +90,12 @@ mynamespace.module2 = {
 ```
 ## 函数  
 在JavaScript中函数就是对象。对象字面量产生的对象连接到Object.prototype，函数对象连接到Funtion.prototype（该原型对象本身连接到Object.prototype。  
-每个函数在创建时两个附加隐藏属性：函数的上下文和实现函数行为的代码。 
-每个函数对象在创建时也带有一个prototype属性，它的值是一个拥有constructor属性，该属性指向该函数的对象。
+每个函数在创建时两个附加隐藏属性：函数的上下文和实现函数行为的代码。每个函数对象在创建时也带有一个prototype属性，它的值是一个拥有constructor属性，该属性指向该函数的对象。
 ```javascript
 var f = function(){};
 f.prototype.constructor === f;
 ```
-1、函数字面量（函数表达式）
+1、函数字面量（函数表达式）  
 函数表达式与函数声明的区别：
 ```javascript
 // 函数表达式
@@ -119,7 +119,7 @@ function fun3(){
 	console.log(888);
 };
 console.log(fun3()); // 666
-//结论：函数表达式会覆盖同名的函数声明
+//结论：1、函数表达式和函数声明都会进行变量提升，只不过函数表达式不会提升函数主体部分；2、函数表达式会覆盖同名的函数声明
 ```
 2、函数调用  
 JavaScript中一共有四种函数调用模式：方法调用模式、函数调用模式、构造函数调用模式和apply调用模式。  
@@ -133,7 +133,7 @@ myObj.method = function(){ // 给对象添加方法
 };
 myObj.method(); // 'Better'
 ```
-- 函数调用模式
+- 函数调用模式  
 当一个函数没有作为一个对象的方法（属性）时，this指向全局对象（window对象）
 ```javascript
 // 全局函数
@@ -155,7 +155,7 @@ myObj.double = function(){
 myObj.double(); // 以方法的形式调用double函数
 myObj.value; // 4
 ```
-- 构造函数调用模式
+- 构造函数调用模式  
 如果函数前面带上new来调用，那么this指向该新对象上，使用new调用函数也会改变return语句的行为，如果return的是对象则返回该对象，否则，返回新创建的对象。
 ```javascript
 // 创建一个构造函数，约定构造函数使用大写开头
@@ -171,8 +171,8 @@ var fun = new Fun('Better');
 fun.getStatus(); // 'Better'
 // 不推荐使用该方法
 ```
-- apply调用模式
-apply方法有两个参数，第一个是绑定this执行的上下文，第二个数参数数组。
+- apply调用模式  
+apply方法有两个参数，第一个参数thisObj，是绑定this执行的上下文，第二个参数argArr，参数数组。
 ```javasvcript
 // 创建一个构造函数，约定构造函数使用大写开头
 function Fun(string){
@@ -197,7 +197,20 @@ var sum = add.apply(null, arr); // 7
 var obj = {};
 obj.status = 24;
 Fun.prototype.getStatus.apply(obj); // 24
+fun.getStatus.apply(obj); // 24
+fun.getStatus.apply(this);
+
+// apply方法第一个参数为null或者undefined时，this指向全局对象（非严格模式下）
+function test(){
+	console.log(this);
+};
+test.apply(null); // this指向全局对象（window对象）
+test.apply(undefined); // this指向全局对象（window对象）
+test.apply(this); // this指向全局对象（window对象）
+
+// 结论：通俗的说，就是把某个方法放到apply方法的第一个参数（thisObj）作用域下执行。
 ```
+
 
 
 
