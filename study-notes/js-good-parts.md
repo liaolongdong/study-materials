@@ -173,7 +173,7 @@ fun.getStatus(); // 'Better'
 ```
 - apply调用模式  
 apply方法有两个参数，第一个参数thisObj，是绑定this执行的上下文，第二个参数argArr，参数数组。
-```javasvcript
+```javascript
 // 创建一个构造函数，约定构造函数使用大写开头
 function Fun(string){
 	this.status = string;
