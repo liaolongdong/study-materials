@@ -207,10 +207,13 @@ function test(){
 test.apply(null); // this指向全局对象（window对象）
 test.apply(undefined); // this指向全局对象（window对象）
 test.apply(this); // this指向全局对象（window对象）
+test.apply(1); // this指向Number对象
+test.apply('string'); // this指向String对象
+test.apply(true); // this指向Boolean对象
 
 // 结论：通俗的说，就是把某个方法放到apply方法的第一个参数（thisObj）作用域下执行。
 ```
-3、arguments类数组参数对象
+3、arguments类数组参数对象  
 arguments对象是一个类数组对象，只有length属性，没有数组相关方法。它可以获取函数调用时的参数列表。该对象只能在函数内部使用。
 ```javascript
 var sum = function(){
@@ -222,7 +225,7 @@ var sum = function(){
 };
 console.log(sum(1, 2, 3, 4, 5)); // 15
 ```
-4、异常
+4、异常  
 JavaScript提供了一套异常处理机制。
 ```javascript
 var add = function(a, b){
@@ -248,15 +251,17 @@ var try_it = function(){
 };
 try_id(); // TypeError : add needs numbers
 ```
-5、给类型添加方法
+5、给类型添加方法  
 通过给Object.prototype添加方法使得该方法对所有对象可用。  
 通过给Function.prototype添加方法使得该方法对所有函数可用。
 ```javascript
 // 给Function.prototype添加方法
 Function.prototype.method = function(name, func){
-	this.prototype[name] = func;
-	return this;
+	if(!this.prototype[name]){
+		this.prototype[name] = func;
+	}
 };
+
 // 给Number对象添加一个integer方法
 Number.method('integer', function(){
 	var funName = this < 0 ? 'ceil' : 'floor'; 
@@ -271,6 +276,34 @@ String.method('trim', function(){
 });
 '  Better '.trim(); // 'Better'
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
