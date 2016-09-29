@@ -85,8 +85,17 @@ mynamespace.module2 = {
 	name: 'xiaowu',
 	age: 22
 };
-// 使用闭包
-
+// 使用闭包，创建唯一ID
+var create = function(){
+	var num = 0;
+	return function(){
+		return num ++;
+	}
+}
+var uId = create();
+uId(); // 0
+uId(); // 1
+uId(); // 2
 ```
 ## 函数  
 在JavaScript中函数就是对象。对象字面量产生的对象连接到Object.prototype，函数对象连接到Funtion.prototype（该原型对象本身连接到Object.prototype。  
@@ -348,6 +357,7 @@ function cxt(){
 }
 ```
 8、闭包  
+一个函数（内部函数）能访问另一个函数（外部函数）的变量就形成了闭包。
 ```javascript
 var myObject = function(){
 	var value = 0;
@@ -361,11 +371,80 @@ var myObject = function(){
 	};
 }();
 
-// 创建一个名为quo
+// 创建一个名为quo的构造函数
+var quo = function(status){
+	return {
+		getStatus: function(){
+			return status;
+		}
+	};
+};
+// 构造一个quo实例
+var myQuo = quo('crazy');
+console.log(myQuo.getStatus()); // 'crazy'
+// 这个构造函数被设计成无需加new来使用，所以名字也没有首字母大写
 
+// 定义一个函数，它设置一个DOM节点为黄色，然后把它渐变为白色
+var fade = function(node){
+	var level = 1;
+	var step = function(){
+		var hex = level.toString(16); // 转化为16进制数
+		console.log(hex);
+		node.style.backgroundColor = '#FFFF' + hex + hex;
+		if(level < 15){
+			level += 1;
+			setTimeout(step, 100);
+		}
+	};
+	setTimeout(step, 100);
+};
+fade(document.body);
+```
+9、回调  
+回调函数可以让不连续的事件处理变得更容易。
+```javascript
+// 这种同步请求会阻塞进程
+request = prepare_the+request();
+response = send_request_synchronously(request);
+display(response);
 
-
-
+// 更好的方式使用异步回调请求
+request = prepare_the_request();
+send_request_asynchronously(request, function(response){
+	display(response);
+});
+```
+10、模块  
+可以使用函数和闭包来构造模块。  
+模块是一个提供接口却隐藏状态与实现的函数或对象。  
+模块模式的一般形式：一个定义了私有变量和函数的函数；利用闭包创建可以访问私有变量和函数的特权函数；最后返回这个特权函数，或者把它们保存到一个可访问的地方。
+```javascript
+// 给所有函数都添加该方法
+Function.prototype.method = function(name, func){
+	if(!this.prototype[name]){
+		this.prototype[name] = func;
+	}
+}
+String.method('deentityify', function(){
+	// 字符实体表
+	var entity = {
+		quot: '""',
+		lt: '<',
+		gt: '>'
+	};
+	// 返回deentityify方法
+	return function(){
+		// 使用字符串的replace方法
+		// 查找‘&’开头和‘;’结束的子字符串
+		return this.replace(/&([^&;]+);/g, function(a, b){
+			console.log(a, b); // a为正则表达式第一个匹配，b为第二个匹配（圆括号里的匹配）
+			var r = entity[b];
+			return typeof r === 'string' ? r : a;
+		});
+	}
+}()); // 这里使用立即执行函数
+console.log('&lt;&quot;&gt;'.deentityify()); // <"">
+```
 
 
 
