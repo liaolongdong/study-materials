@@ -119,7 +119,7 @@ function fun3(){
 	console.log(888);
 };
 console.log(fun3()); // 666
-//结论：1、函数表达式和函数声明都会进行变量提升，只不过函数表达式不会提升函数主体部分；2、函数表达式会覆盖同名的函数声明
+//结论：1、函数表达式和函数声明都会进行变量提升；2、函数表达式会覆盖同名的函数声明
 ```
 2、函数调用  
 JavaScript中一共有四种函数调用模式：方法调用模式、函数调用模式、构造函数调用模式和apply调用模式。  
@@ -276,12 +276,92 @@ String.method('trim', function(){
 });
 '  Better '.trim(); // 'Better'
 ```
+6、递归  
+递归函数会直接或间接地调用自身的一种函数。一般来说，一个递归函数调用自身去解决它的子问题。  
+递归可以非常高效地操作树形结构，比如浏览器端的文档对象模型（DOM）。每次递归调用时处理给定树的一小段。
+```javascript
+// walk_the_DOM调用自身去处理每一个子节点
+var walk_the_DOM = function walk(node, func){
+	func(node);
+	node = node.firstChild;
+	while(node){
+		walk(node, func);
+		node = node.nextSibling;
+	}
+};
+// 创建一个通过属性查找节点的函数
+var getElementByAttribute = function(attr, value){
+	var results = [];
+	walk_the_DOM(document.body, function(node){
+		var actual = node.nodeType === 1 && node.getAttribute(attr);
+		if(typeof actual === 'string' && (actual === value || typeof value !== 'string')){
+			results.push(node);
+		}
+	});
+	return results;
+};
 
+// 利用递归，计算一个数的阶乘
+var factorial = function factorial(i, a){
+	a = a || 1;
+	if(i < 2){
+		return a;
+	}
+	return factorial(i - 1, a * i);
+};
+factorial(3); // 6
+factorial(3, 2); // 12
+factorial(3, 3); // 18
 
+// 不建议在匿名函数中使用arguments.callee()
+// 在给函数表达式一个名称或者使用函数声明而该函数必须调用自己时，禁止使用 arguments.callee()
+// 在ES5的严格模式中禁止使用 arguments.callee()
+function create(){
+	return function(num){
+		if(num < 2){
+			return 1;
+		}else{
+			return num * arguments.callee(num - 1);
+		}
+	}	
+};
+var result = create()(3); // 6
+```
+7、作用域  
+作用域控制着变量与参数的可见性和生命周期。  
+JavaScript有函数作用域，但没有块级作用域，最好的做法是在函数体的顶部声明函数中可能用到的所有变量。
+```javascript
+// 函数内的变量会进行变量提升，所以运行cxt()函数，前两次console.log(c);没有报错
+function cxt(){
+	var a = 1, b = 2;
+	console.log(c); // undefined
+	function innerFun(){
+		var a = 6, b =7, c = 8;
+		console.log(a, b, c); // 6 7
+	}
+	innerFun();
+	console.log(c); // undefined
+	if(a == 1){ // false
+		var c = 3;
+	};
+	console.log(c); // 3
+}
+```
+8、闭包  
+```javascript
+var myObject = function(){
+	var value = 0;
+	return {
+		increment: function(inc){
+			value += typeof inc === 'number' ? inc : 1;
+		},
+		getValue: function(){
+			return value;
+		}
+	};
+}();
 
-
-
-
+// 创建一个名为quo
 
 
 
