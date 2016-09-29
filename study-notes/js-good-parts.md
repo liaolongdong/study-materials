@@ -277,6 +277,8 @@ String.method('trim', function(){
 '  Better '.trim(); // 'Better'
 ```
 6、递归  
+递归函数会直接或间接地调用自身的一种函数。一般来说，一个递归函数调用自身去解决它的子问题。  
+递归可以非常高效地操作树形结构，比如浏览器端的文档对象模型（DOM）。每次递归调用时处理给定树的一小段。
 ```javascript
 // walk_the_DOM调用自身去处理每一个子节点
 var walk_the_DOM = function walk(node, func){
