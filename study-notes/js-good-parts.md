@@ -444,14 +444,109 @@ String.method('deentityify', function(){
 	}
 }()); // 这里使用立即执行函数
 console.log('&lt;&quot;&gt;'.deentityify()); // <"">
+
+// 构造一个用来产生序列号的对象
+var serial_marker = function(){
+	// 返回一个用来产生唯一字符串的对象
+	// 唯一字符串由两部分组成：前缀+序列号
+	// 该对象包含一个设置前缀的方法，一个设置序列号的方法和一个产生唯一字符串的gensym方法
+	var prefix = '';
+	var seq = 0;
+	return {
+		set_prefix: function(p){
+			prefix = String(p);
+		},
+		set_seq: function(s){
+			seq = s;
+		},
+		gensym: function(){
+			var result = prefix + seq;
+			seq += 1;
+			return result;
+		}
+	};
+};
+var seqer = serial_marker();
+seqer.set_prefix('Q');
+seqer.set_seq(1000);
+var unique = seqer.gensym(); // unique is "Q1000"
+var unique = seqer.gensym(); // "Q1001"
 ```
+模块模式通常结合单例模式（Singleton Pattern）使用。  
+JavaScript的单例就是用对象字面量表示法创建的对象，对象的属性值可以是数值或函数，并且属性值在该对象的生命周期中不会发生变化。  
 
+11、链式调用（级联）  
+方法返回this而不是undefined就可以启用链式调用（级联），链式调用可以产生出具备强大表现力的接口。
+```javascript
+getElement('myBoxDiv').
+	move(100, 200).
+	width(100).
+	height(200).
+	color('red').
+	on(mouseover, func);
+```
+12、记忆  
+函数可以用对象去记住先前操作的结果，从而避免多余的运算。这种优化被称为记忆。JavaScript的对象和数组要实现这种优化是非常方便的。
+```javascript
+// Fibonacci数列，斐波那契数列，特点，前面相邻两项之和等于后一项的值。
+var fibonacci = function(n){
+	return n < 2 ? n : fibonacci(n - 1)	+ fibonacci(n - 2);
+};
+for(var i =0; i <= 10; i ++){
+	console.log(i, fibonacci(i));
+}
+// 0 0
+// 1 1
+// 2 1
+// 3 2
+// 4 3
+// 5 5
+// 6 8
+// 7 13
+// 8 21
+// 9 34
+// 10 55
+// fibonacci被调用了453次，除了我们调用了11次，其它的调用都在计算已经计算过的值
 
+// 上面的例子做了很多重复的工作，下面进行一下优化
+var fibonacci = function(){
+	var memo = [0, 1];
+	var fib = function(n){
+		var result = memo[n];
+		if(typeof result !== 'number'){ // 判断是否已经存在结果
+			result = fib(n - 1) + fib(n - 2);
+			memo[n] = result;
+		}
+		return result;
+	};
+	return fib;
+}();
+for(var i =0; i <= 10; i ++){
+	console.log(i, fibonacci(i));
+}
+// 这样优化后只调用了29次，我们调用了11次，函数自身调用了18次
 
-
-
-
-
+// 编写一个函数来帮助我们构造带记忆动能的函数，他返回一个管理memo存储和在需要是调用func函数的shell函数。
+var memoizer = function(memo, func){
+	var shell = function(n){
+		var result = memo[n];
+		if(typeof result !== 'number'){
+			result = func(shell, n);
+			memo[n] = result;
+		}
+		return result;
+	};
+	return shell;
+};
+// 使用memoizer来定义fibonacci函数
+var fibonacci = memoizer([0, 1], function(shell, n){
+	return shell(n - 1) + shell(n - 2);
+});
+// 使用memoizer来定义factoriala函数
+var factorial = memoizer([1, 1], function(shell, n){
+	return n * shell(n - 1);
+});
+```
 
 
 
