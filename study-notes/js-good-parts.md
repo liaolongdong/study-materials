@@ -547,6 +547,164 @@ var factorial = memoizer([1, 1], function(shell, n){
 	return n * shell(n - 1);
 });
 ```
+## 继承  
+1、伪类  
+当一个函数对象被创建时，Function构造器产生的函数对象会运行类似这样的一些代码：
+```javascript
+this.prototype = {constructor: this};
+```
+新函数对象被赋予一个prototype属性，其值是包含一个constructor属性且属性值为该新函数对象。每个函数都拥有一个prototype对象。
+```javascript
+function f(){};
+f.prototype.constructor === f; // true
+```
+定义一个构造器并给原型添加方法
+```javascript
+// 父类
+// 创建构造函数
+var Mammal = function(name){
+	this.name = name;	
+};
+// 给原型添加方法
+Mammal.prototype.getName = function(){
+	return this.name;	
+};
+Mammal.prototype.say = function(){
+	return this.saying || 'hello';
+};
+var myMammal = new Mammal('Herb the Mammal');
+var name = myMammal.getName(); // 'Herb the Mammal'
+
+// 子类
+var Cat = function(name){
+	this.name = name;
+	this.saying = 'meow';
+};
+// 替换Cat.prototype为一个新的Mammal实例(继承父类)
+Cat.prototype = new Mammal();
+// 给新的原型对象添加方法
+Cat.prototype.purr = function(n){
+	var i, s = '';
+	for(i = 0; i < n; i += 1){
+		if(s){
+			s += '-';
+		}
+		s += 'r';
+	}
+	return s;
+};
+Cat.prototype.getName = function(){
+	return this.say() + ' ' + this.name + ' ' + this.say();	
+};
+var myCat = new Cat('Henrietta');
+var say =  myCat.say(); // 'meow'
+var purr = myCat.purr(5); // 'r-r-r-r-r'
+var name = myCat.getName(); // 'meow Henrietta meow'
+
+// 隐藏prototype操作细节，这部分代码要用到上面Mammal父类代码，才能运行
+Function.prototype.method = function(name, func){
+	if(!this.prototype[name]){
+		this.prototype[name] = func;
+	}
+	return this;
+};
+Function.method('inherits', function(Parent){
+	this.prototype = new Parent();
+	return this;
+});
+var Cat = function(name){
+	this.name = name;
+	this.saying = 'meow';
+}.
+	inherits(Mammal).
+	method('purr', function(n){
+		var i, s = '';
+		for(i = 0; i < n; i += 1){
+			if(s){
+				s += '-';
+			}
+			s += 'r';
+		}
+		return s;
+	}).
+	method('getName', function(){
+		return this.say() + ' ' + this.name + ' ' + this.say();
+	});
+var cat = new Cat('icat');
+cat.getName(); // 'icat'
+cat.purr(5); // r-r-r-r-r
+// 这种方法的缺点：没有私有环境，所有的属性都是公开的。
+```
+2、原型  
+```javascript
+// 创建一个有用的对象
+var myMammal = {
+	name: 'Herb the Mammal',
+	getName: function(){
+		return this.name;
+	},
+	says: function(){
+		return this.saying || '';
+	}
+};
+// 使用Object.create()方法构造出更多的实例来
+var myCat = Object.create(myMammal);
+myCat.name = 'Henrietta';
+myCat.saying = 'meow';
+myCat.purr = function(n){
+	var i, s = '';
+	for(i = 0; i < n; i ++){
+		if(s){
+			s += '-';
+		}
+		s += 'r';
+	}
+	return s;
+};
+myCat.getName = function(){
+	return this.says() + ' ' + this.name + ' ' + this.says();
+};
+// 这是一种“差异化继承”，通过制定一个新的对象，我们指明了它与所基于的基本对象的区别。
+```
+3、函数化  
+前面的例子中的name属性和saying属性是完全公开的，下面这个例子让name属性和saying属性变成私有变量：
+```javascript
+// 模块模式的应用
+var mammal = function(spec){
+	var that = {};
+	that.getName = function(){
+		return spac.name;
+	};
+	that.says = function(){
+		return spec.saying || '';
+	};
+	return that;
+};
+var myMammal = mammal({name: 'Herb'});
+
+var cat = function(spec){
+	spec.saying = spec.saying || 'meow';
+	var that = mammal(spec);
+	that.purr = function(n){
+		var i, s = '';
+		for(i = 0; n < i; i ++){
+			if(s){
+				s += '-';
+			}
+			s += 'r';
+		}
+		return s;
+	};
+	that.getName = function(){
+		return that.says() + ' ' + spec.name + ' ' + that.says();
+	};
+	return that;
+};
+var myCat = cat({name: 'Henrietta'});
+```
+
+
+
 
 
 
