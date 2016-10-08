@@ -701,10 +701,75 @@ var cat = function(spec){
 	return that;
 };
 var myCat = cat({name: 'Henrietta'});
+
+// 函数化模式给我们提供了一个处理父类的方法
+Function.prototype.method = function(name, func){
+	if(!this.prototype[name]){
+		this.prototype[name] = func;
+	}
+	return this;
+};
+Object.method('superior', function(name){
+	var that = this;
+	method = that[name];
+	return function(){
+		return method.apply(that, arguments);
+	}
+});
+var coolcat = function(spec){
+	var that = cat(spec);
+	var superGetName = that.superior('getName');
+	that.getName = function(){
+		return 'like ' + superGetName() + ' baby';
+	};
+	return that;
+};
+var myCoolCat = coolcat({name: 'Bix'});
+var name = myCoolCat.getName(); // 'like meow Bix meow baby'
 ```
-
-
-
+4、部件  
+```javascript
+var eventuality = function(that){
+	var registry = {};
+	that.fire = function(event){
+		var array,
+			func,
+			handler,
+			i,
+			type = typeof event === 'string' ? event : event.type;
+		// 如果这个事件存在一组事件处理程序，那么就遍历它们并按顺序依次执行
+		if(registry.hasOwnProperty(type)){
+			array = registry[type];
+			for(i = 0; i < array.length; i ++){
+				handler = array[i];
+				// 每个处理程序包含一个方法和一组可选的参数
+				// 如果该方法是一个字符串形式的名字，那么寻找到该函数
+				func = handler.method;
+				if(typeof func === 'string'){
+					func = this[func];
+				}
+				func.apply(this, handler.parameters || [event]);
+			}
+		}
+		return this;
+	};
+	that.on = function(type, method, parameters){
+		// 注册一个事件，构造一条处理程序条目，将它插入到处理程序数组中，如果这种类型的事件还不存在，就构造一个
+		var handler = {
+			method: method,
+			parameters: parameters
+		};
+		if(registry.hasOwnProperty(type)){
+			registry[type].push(handler);
+		}else{
+			registry[type] = [handler];
+		}
+		return this;
+	};
+	return that;
+};
+// 用这种方式，一个构造函数可以从一套部件中组装出对象来
+```
 
 
 
