@@ -437,7 +437,7 @@ String.method('deentityify', function(){
 		// 使用字符串的replace方法
 		// 查找‘&’开头和‘;’结束的子字符串
 		return this.replace(/&([^&;]+);/g, function(a, b){
-			console.log(a, b); // a为正则表达式第一个匹配，b为第二个匹配（圆括号里的匹配）
+			console.log(a, b); // a为正则表达式第一个匹配，b为第二个匹配（正则表达式圆括号里的匹配）
 			var r = entity[b];
 			return typeof r === 'string' ? r : a;
 		});
@@ -770,12 +770,61 @@ var eventuality = function(that){
 };
 // 用这种方式，一个构造函数可以从一套部件中组装出对象来
 ```
+## 数组  
+数组是一段线性分配的内存，它通过整数去计算偏移并访问其中的元素。数组可以是很快的数据结构。但是，JavaScript没有像这种数组一样的数据结构。  
+JavaScript提供了一种拥有一些类数组（array-like）特性的对象，它把数组的下标转变成字符串，用其作为属性。它的性能明显的比真正的数组慢，但它可以更方便的使用。  
+1、数组字面量  
+数组的第一个值将获得属性名'0'，第二个将获得属性名'1'，依次类推：
+```javascript
+// 数组字面量
+var empty = [];
+var numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+console.log(empty[1]); // undefined
+console.log(numbers[1]); // 'one'
+console.log(numbers['1']); // 'one'
+console.log(empty.length); // 0
+console.log(numbers.length); // 10
 
-
-
-
-
-
+// 对象字面量
+var numbers_object = {
+	'0': 'zero',
+	'1': 'one',
+	'2': 'two',
+	'3': 'three',
+	'4': 'four',
+	'5': 'five',
+	'6': 'six',
+	'7': 'seven',
+	'8': 'eight',
+	'9': 'nine'
+};
+// 在大多数语言中，一个数组的所有元素都要求是相同的类型。但是，JavaScript允许数组包含任意混合类型的值
+var misc = ['steing', 66, true, null, undefined, [1, 2, 3], NaN, {name: 'Better'}];
+```
+numbers和numbers_object两者的区别：  
+- numbers继承自Array.prototype，而numbers_object继承自Object.prototype
+- numbers继承了大量操作数组的方法
+- numbers有length属性，而numbers_object则没有
+1、长度  
+JS数组的length属性没有上限，如果你用等于或大于当前length的数字作为下标来保存一个元素，那么length将增大来容纳新元素，不会发生数组越界错误。
+```javascript
+// length属性的值是这个数组的最大整数属性名加1，它不一定等于数组里属性的个数
+var myArray = [];
+console.log(myArray.length); // 0
+// myArray[10000] = true;
+myArray['10000'] = true;
+console.log(myArray.length); // 10001
+// 可以直接设置数组length属性的值，设置更大的length不会给数组分配更多的空间，而把length设小将导致所有等于大于新length的属性被删除
+var numArr = [0, 1, 2, 3, 4, 5];
+numArr.length = 3;
+console.log(numArr); // [0, 1, 2]
+// 添加新元素到数组尾部
+numArr[numArr.length] = 3;
+console.log(numArr); // [0, 1, 2, 3]
+// 添加新元素到数组尾部，使用push方法
+numArr.push(4);
+console.log(numArr); // [0, 1, 2, 3, 4]
+```
 
 
 
