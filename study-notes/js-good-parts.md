@@ -813,7 +813,8 @@ var misc = ['steing', 66, true, null, undefined, [1, 2, 3], NaN, {name: 'Better'
 numbers和numbers_object两者的区别：  
 - numbers继承自Array.prototype，而numbers_object继承自Object.prototype
 - numbers继承了大量操作数组的方法
-- numbers有length属性，而numbers_object则没有
+- numbers有length属性，而numbers_object则没有  
+
 2、长度  
 JS数组的length属性没有上限，如果你用等于或大于当前length的数字作为下标来保存一个元素，那么length将增大来容纳新元素，不会发生数组越界错误。
 ```javascript
@@ -972,7 +973,8 @@ Array.identity = function(n){
 	return mat;
 }
 var myMatrix1 = Array.identity(4);
-console.log(myMatrix1[3][3]);
+console.log(myMatrix1[3][2]); // 6
+console.log(myMatrix1[3][3]); // 8
 ```
 
 
