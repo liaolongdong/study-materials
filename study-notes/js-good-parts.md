@@ -24,7 +24,7 @@ var isNaN = isNaN(number); // 用isNaN方法判断是否为数字，不是数字
 
 5、运算符  
 typeof运算符产生的值有：'number','string','boolean','undefined','function','object'.  
-'+' 运算符只有在操作符两端操作数都为数字时进行相加，其他情况是字符串连接。  
+'+' 运算符只有在运算符两端运算数都为数字时进行相加，其他情况是字符串连接。  
 '/' 运算符可能产生一个非整数结果，即使两个运算数都是整数。  
 '&&' 运算符使用技巧：当&&的第一个运算数的值为假时，取第一个运算数的值，反之，取第二个的值。
 ```javascript
@@ -814,7 +814,7 @@ numbers和numbers_object两者的区别：
 - numbers继承自Array.prototype，而numbers_object继承自Object.prototype
 - numbers继承了大量操作数组的方法
 - numbers有length属性，而numbers_object则没有
-1、长度  
+2、长度  
 JS数组的length属性没有上限，如果你用等于或大于当前length的数字作为下标来保存一个元素，那么length将增大来容纳新元素，不会发生数组越界错误。
 ```javascript
 // length属性的值是这个数组的最大整数属性名加1，它不一定等于数组里属性的个数
@@ -837,6 +837,223 @@ console.log(numArr); // [0, 1, 2, 3]
 numArr.push(4);
 console.log(numArr); // [0, 1, 2, 3, 4]
 ```
+3、删除  
+由于JavaScript的数组其实就是对象，所以可以使用delete运算符移出数组中的元素，但是数组中会遗留一个空洞。
+```javascript
+var numArr = [0, 1, 2, 3, 4, 5];
+delete numArr[2];
+console.log(numArr); // [0, 1, undefined, 3, 4, 5]
+
+// 使用数组中的splice()方法
+var numArr = [0, 1, 2, 3, 4, 5];
+// 从数组下标为2的位置开始，删除1个数组元素，
+// 并在该位置插入66这个元素，返回被删除的元素数组[2]
+numArr.splice(2, 1, 66); // [2]
+console.log(numArr); // [0, 1, 66, 3, 4, 5]
+```
+4、枚举  
+因为JS中的数组也是对象，所有可以使用for in语句来遍历数组的所有属性。  
+但是，使用for in语句无法保证属性的顺序，而且存在从原型链中得到意外属性的可能
+```javascript
+// 使用for in遍历数组的属性（不推荐）
+var nums = ['zero', 'one', 'two', 'three'];
+for(var num in nums){
+	console.log(num, nums[num]);
+}
+// 推荐使用for循环遍历数组
+for(var i = 0, len = nums.length; i < len; i ++){
+	console.log(i, nums[i]);
+}
+```
+5、判断数组（包括其它类型）
+```javascript
+// 本书中使用的方法（数组中的length不可枚举，length能否通过for in遍历出来？）
+var arr = [];
+var obj = {};
+var is_array = function(value){
+	return value &&  // 判断这个值是否为真
+		typeof value === 'object' &&  // 是否为对象
+		typeof value.length === 'number' &&  // 是否存在length属性而且值为数字类型
+		typeof value.splice === 'function' &&  // 是否存在splice方法
+		!(value.propertyIsEnumerable('length'));  // length属性是否可枚举
+};
+console.log(is_array(arr)); // true
+console.log(is_array(obj)); // false
+
+// 判断一个值是否为数组（最常用的方法）
+function isArray(value){
+	return Object.prototype.toString.call(value) === '[object Array]';
+}
+var arr = [];
+var num = 1;
+var bool = true;
+var str = 'string';
+var obj = {};
+var func = function(){};
+console.log(isArray(arr)); // true
+console.log(Object.prototype.toString.call(num)); // '[object Number]'
+console.log(Object.prototype.toString.call(bool)); // '[object Boolean]'
+console.log(Object.prototype.toString.call(str)); // '[object String]'
+console.log(Object.prototype.toString.call(obj)); // '[object Object]'
+console.log(Object.prototype.toString.call(func)); // '[object Function]'
+console.log(Object.prototype.toString.call(null)); // '[object Null]'
+console.log(Object.prototype.toString.call(undefined)); // '[object Undefined]'
+// PS: 使用该方法的前提是Object对象的toString()方法没有被重写
+```
+6、方法  
+JS提供了一套用于操作数组的方法，这些方法被存放在Array.prototype中，我们可以通过在Array.prototype中添加方法来扩充数组方法
+```javascript
+// 扩充一个方法，每个数组都会继承这个方法
+Array.prototype.reduce1 = function(func, value){
+	for(var i =0, len = this.length; i < len; i ++){
+		value = func(this[i], value);
+	}
+	return value;
+};
+var arr = [1, 2, 3, 4, 5];
+var add = function(a, b){
+	return a + b;
+};
+var mult = function(a, b){
+	return a * b;
+};
+var sum = arr.reduce1(add, 0); // 15
+var product = arr.reduce1(mult, 1); // 120
+
+// 因为数组也是对象，所以可以单独给数组添加方法
+arr.total = function(){
+	return this.reduce1(add, 0);
+};
+total = arr.total(); // 15
+```
+7、维度  
+```javascript
+// 定义一个初始化数组的方法
+Array.dim = function(dimension, initial){
+	var a = [], i;
+	for(i = 0; i < dimension; i ++){
+		a[i] = initial;
+	}
+	return a;
+}
+// 创建一个包含6个6的数组
+var myArray = Array.dim(6, 6); // [6, 6, 6, 6, 6, 6]
+
+// 多维数组
+var matrix = [
+	[0, 1, 2],
+	[3, 4, 5],
+	[6, 7, 8]
+];
+matrix[2][0]; // 6
+
+// 数组矩阵
+Array.matrix = function(m, n, initValue){
+	var i, j, a, mat = [];
+	for(i = 0; i < m; i ++){
+		a = [];
+		for(j = 0; j < n; j ++){
+			a[j] = initValue;
+		}
+		mat[i] = a;
+	}
+	return mat;
+}
+// 创建一个用6填充的4×4矩阵
+var myMatrix = Array.matrix(4, 4, 6);
+console.log(myMatrix[3][3]); // 6
+
+// 创建一个恒等矩阵
+Array.identity = function(n){
+	var i, mat = Array.matrix(n, n, 6);
+	for(i =0; i < n; i ++){
+		mat[i][i] = 8
+	}
+	return mat;
+}
+var myMatrix1 = Array.identity(4);
+console.log(myMatrix1[3][3]);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
