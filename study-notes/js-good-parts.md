@@ -56,8 +56,17 @@ obj.last_name = 'longdong'; // last_name为合法标识符
 ```javascript
 var a = {}, b ={}, c = {}; //a,b,c属于不同的对象，因为它们的引用不同
 a == b; // false
+a.name = 'Better';
+b.name = 24;
+console.log(a); // {name: 'Better'}
+console.log(b); // {name: 24}
+
 var a = b = c = {}; // a,b,c属于用一个对象
 a === b; // true
+a.name = 'Better';
+b.age = 24;
+console.log(a); // {name: 'Better', age: 24}
+console.log(b); // {name: 'Better', age: 24}
 ```
 3、原型  
 每个对象都有原型对象，所谓的原型链，就是查找对象的属性和方法时，首先，查找对象本身是否有该属性或者方法，如果没有，则沿着原型对象进行查找，直到Object.prototype，如果都没有则返回undefined.
@@ -98,11 +107,11 @@ uId(); // 1
 uId(); // 2
 ```
 ## 函数  
-在JavaScript中函数就是对象。对象字面量产生的对象连接到Object.prototype，函数对象连接到Funtion.prototype（该原型对象本身连接到Object.prototype。  
-每个函数在创建时两个附加隐藏属性：函数的上下文和实现函数行为的代码。每个函数对象在创建时也带有一个prototype属性，它的值是一个拥有constructor属性，该属性指向该函数的对象。
+在JavaScript中函数就是对象。对象字面量产生的对象连接到Object.prototype，函数对象连接到Funtion.prototype（该原型对象本身连接到Object.prototype）。  
+每个函数在创建时两个附加隐藏属性：函数的上下文和实现函数行为的代码。每个函数对象在创建时也带有一个prototype属性，它的值是一个拥有constructor属性，该属性指向该函数对象。
 ```javascript
 var f = function(){};
-f.prototype.constructor === f;
+f.prototype.constructor === f; // true
 ```
 1、函数字面量（函数表达式）  
 函数表达式与函数声明的区别：
@@ -814,13 +823,16 @@ console.log(myArray.length); // 0
 // myArray[10000] = true;
 myArray['10000'] = true;
 console.log(myArray.length); // 10001
+
 // 可以直接设置数组length属性的值，设置更大的length不会给数组分配更多的空间，而把length设小将导致所有等于大于新length的属性被删除
 var numArr = [0, 1, 2, 3, 4, 5];
 numArr.length = 3;
 console.log(numArr); // [0, 1, 2]
+
 // 添加新元素到数组尾部
 numArr[numArr.length] = 3;
 console.log(numArr); // [0, 1, 2, 3]
+
 // 添加新元素到数组尾部，使用push方法
 numArr.push(4);
 console.log(numArr); // [0, 1, 2, 3, 4]
