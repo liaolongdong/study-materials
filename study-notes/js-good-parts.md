@@ -1013,10 +1013,57 @@ console.log(myMatrix1[3][3]); // 8
 ```javascript
 // 匹配URL的正则表达式
 var parse_url = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+
+var url = 'http://www.better.com:8080/goodparts?q#fragment';
+
+// 使用正则表达式的exec()方法，该方法返回一个匹配数组
+var result_arr = parse_url.exec(url);
+var names = ['url', 'scheme', 'slash', 'host', 'port', 'path', 'query', 'hash'];
+var line_end = '\n';
+var i;
+for(i = 0, len = names.length; i < len; i ++){
+	console.log(names[i] + ' : ' + result_arr[i] + line_end);
+}
+// 输出结果：
+// url : http://www.better.com:8080/goodparts?q#fragment
+// scheme : http
+// slash : /
+// host : www.better.com
+// port : 8080
+// path : goodparts
+// query : q
+// hash : fragment
+
+// 匹配数字的正则表达式
+var parse_num = /^-?\d+(?:\.\d*)?(?:e[+\-]?\d+)?$/i;
+var test_num = function(num){
+	return parse_num.test(num);
+}
+console.log(test_num('1')); // true
+console.log(test_num('-1')); // true
+console.log(test_num('0.01')); // true
+console.log(test_num('0.')); // true
+console.log(test_num('1.2.3')); // false
+console.log(test_num('123.45e-67')); // true
+console.log(test_num('123.45E+67')); // true
+console.log(test_num('123.456D-7')); // false
+// 通常用非捕获型分组来代替少量不优美的捕获型分组是很好的方法
+// 因为捕获会有性能上的损失。
 ```
+2、结构  
+正则表达式有两种创建方式：
+```javascript
+// 最常用的方式（字面量）
+var reg = /^\d+$/g;
+console.log(reg.test(123)); // true
+console.log(reg.test('123s')); // false
 
-
-
+// 使用RegExp构造器，这时的反斜杠（\）和字面量中有不同的含义
+// 通常需要双写反斜杠进行转义
+var reg = new RegExp('^\\d+$', 'g');
+console.log(reg.test(123)); // true
+console.log(reg.test('123s')); // false
+```
 
 
 
