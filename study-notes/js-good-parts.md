@@ -1215,7 +1215,7 @@ console.log(obj2.member); // true
 ```
 5、RegExp  
 - regexp.exec(string)方法是正则表达式中最强大（和最慢）的方法。如果它成功的匹配，它会返回一个数组。数组中下标为0的元素将包含正则表达式regexp匹配的子字符串。下标为1的元素是分组1捕获的文本，下标为2的元素是分组2捕获的文本，依次类推。如果匹配失败，则返回null。
-- regexp.exec(string)方法是正则表达式中最简单（和最快）的方法。如果匹配成功，返回true，否则，返回false。不要对这个方法使用g标识。
+- regexp.test(string)方法是正则表达式中最简单（和最快）的方法。如果匹配成功，返回true，否则，返回false。不要对这个方法使用g标识。
 ```javascript
 // regexp.exec(string)，匹配邮箱
 var regexpEmail = /^(\w+)@(\w+\.\w{2,4})$/;
