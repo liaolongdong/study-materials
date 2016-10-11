@@ -1064,69 +1064,340 @@ var reg = new RegExp('^\\d+$', 'g');
 console.log(reg.test(123)); // true
 console.log(reg.test('123s')); // false
 ```
+## 方法  
+JavaScript有不少内置对象，比如，Array,Date,RegExp,Error,Math以及基本数据类型的封装对象，Number,Boolean,String等，这些内置对象都提供许多操作该类型的属性和方法，这些方法存放在内置对象中或者内置对象的原型对象中。  
 
+1、Array  
+```javascript
+// array.concat(item...)方法，连接数组
+var a = [1, 2, 3];
+var b = ['a', 'b', 'c'];
+var c = a.concat(b, true); // [1, 2, 3, "a", "b", "c", true]
 
+// array.join(separator)方法，该方法性能优于+运算符连接字符串
+var a = ['a', 'b', 'c'];
+var c = a.join(' @ '); // "a @ b @ c"
 
+// array.pop()方法，移出数组中最后一个元素，如果数组为空，则该方法返回undefined。
+// array.pop()方法和array.push()方法组合使用可以模拟后进先出队列
+var a = ['a', 'b', 'c'];
+var c = a.pop(); // 'c'
+console.log(a); // ['a', 'b']
 
+// 实现pop()方法
+Array.prototype.pop = function(){
+	return this.splice(this.length - 1, 1)[0];
+};
 
+// array.push(item...)方法，在数组末尾添加元素
+var a = [1, 2, 3];
+var b = ['a', 'b', 'c'];
+var c = a.push(b, true); // 5，返回新数组的长度
+console.log(a); // [1, 2, 3, ['a', 'b', 'c'], true]
 
+// 实现push()方法
+Array.prototype.push = function(){
+	// 把push方法的参数添加到splice方法的第三个参数中
+	this.splice.apply(this, [this.length, 0].concat(Array.prototype.slice.apply(arguments)));
+	return this.length;
+};
 
+// array.reverse()方法，反转数组中元素的顺序。
+var a = [1, 2, 3];
+var b = a.reverse(); // [3, 2, 1]
 
+// array.shift()方法，移出数组中的第一个元素，如果数组为空，则该方法返回undefined。
+// shift方法通常比pop方法慢得多
+var a = [1, 2, 3];
+var b = a.shift(); // 1
+console.log(a); // [2, 3]
 
+// 实现shift方法
+Array.prototype.shift = function(){
+	return this.splice(0, 1)[0];
+};
 
+// array.slice(startIndex, endIndex)方法，截取数组
+var a = [1, 2, 3];
+console.log(a.slice(0, 1)); // [0]
+console.log(a.slice(1)); // [2, 3]
+console.log(a.slice(1, 3)); // [2, 3]
 
+// array.sort(comparefn)方法,对数组进型排序
+// 不传比较函数，默认的比较函数会把所有元素转化为字符串然后再进行比较
+var a = [3, 1, 5, 23, 16, 8];
+console.log(a.sort()); // [1, 16, 23, 3, 5, 8]
 
+// 使用比较函数
+var a = [3, 1, 8, 5, '4', 23, 16, 8];
+var compareFun = function(a, b){
+	return a - b;
+};
+console.log(a.sort(compareFun)); // [1, 3, "4", 5, 8, 8, 16, 23]
 
+// array.splice(startIndex, delCount, insertItem)
+var a = [1, 2, 3, 4, 5];
+var b = a.splice(2, 1, 6, 6); // [3] ,返回被移除的元素数组
+console.log(a); // [1, 2, 6, 6, 4, 5]
 
+var a = [1, 2, 3, 4, 5];
+var b = a.splice(2, 1, [6, 6]); // [3] ,返回被移除的元素数组
+console.log(a); // [1, 2, [6, 6], 4, 5]
 
+// array.unshift(item...)方法，把元素添加到数组的首部
+var a = [1, 2, 3, 4];
+var b = a.unshift(0); // 5，返回新数组的长度
+console.log(a); // [0, 1, 2, 3, 4]
 
+// 实现unshift()方法
+Array.prototype.unshift = function(){
+	this.splice.apply(this, [0, 0].concat(Array.prototype.slice.apply(arguments)));
+	return this.length;
+};
+```
+操作数组的方法都存放在Array.prototype原型对象中，其中，包括ES5和ES6新增的数组方法，如forEach,reduce,map,entries,every,some等方法。  
 
+2、Function  
+函数对象有两个比较常用的方法：apply和call方法。这个两个方法的区别是：前者的参数是以数组的形式传递，而后者这是单个单个的传递。  
+func.apply(thisArg, argArray)，该方法的第一个参数：将func方法放到thisArg作用域下执行，也就是说，将func方法的this指向thisArg，第二个参数（可选）：要传递给func方法的参数数组。func.call(thisArg, arg1, arg2, ...)。
+```javascript
+// 利用apply方法实现bind方法
+Function.prototype.bind = function(that){
+	// 返回一个函数，调用这个函数就像它是that对象的方法一样
+	var self = this;
+	console.log('self: ', self);
+	var slice = Array.prototype.slice;
+	console.log('arguments: ', arguments);
+	var args = slice.apply(arguments, [1]);
+	return function(){
+		return self.apply(that, args.concat(slice.apply(arguments, [0])));
+	};
+};
 
+var test = function(){
+	return this.value;
+}.bind({value: 'Better'});
+console.log(test()); // 'Better'
+```
+3、Number  
+Number对象提供了很多操作数字的方法。这些属性和方法存放在Number对象或者Number.prototype原型对象中。
+```javascript
+// number.toExponential(fractionDigits)，该方法把number转换成一个指数形式的字符串。
+console.log(Math.PI.toExponential()); // 3.141592653589793e+0
+console.log(Math.PI.toExponential(0)); // 3e+0
+console.log(Math.PI.toExponential(2)); // 3.14e+0
 
+// number.toFixed(fractionDigits)，该方法把number转换成一个十进制形式的字符串。
+console.log(Math.PI.toFixed()); // 3
+console.log(Math.PI.toFixed(0)); // 3
+console.log(Math.PI.toFixed(2)); // 3.14
 
+// number.toPrecision(precision)，该方法把number转换成一个十进制形式的字符串，precision是有效数字的位数
+console.log(Math.PI.toPrecision()); // 3.141592653589793
+console.log(Math.PI.toPrecision(2)); // 3.1
+console.log(Math.PI.toPrecision(4)); // 3.142
 
+// number.toString(radix)，该方法把number转换成一个字符，radix表示进制基数
+console.log(Math.PI.toString()); // 3.141592653589793
+console.log(Math.PI.toString(2)); // 11.001001000011111101101010100010001000010110100011
+console.log(Math.PI.toString(8)); // 3.1103755242102643
+console.log(Math.PI.toString(16)); // 3.243f6a8885a3
+```
+4、Object  
+```javascript
+// object.hasOwnProperty(name)，该方法用来检查某个对象是否包含某个属性或者方法，
+// 该方法不会检测原型链中的属性和方法
+var obj1 = {member: true};
+var obj2 = Object.create(obj1);
+console.log(obj1.hasOwnProperty('member')); // true
+console.log(obj2.hasOwnProperty('member')); // false
+console.log(obj2.member); // true
+```
+5、RegExp  
+- regexp.exec(string)方法是正则表达式中最强大（和最慢）的方法。如果它成功的匹配，它会返回一个数组。数组中下标为0的元素将包含正则表达式regexp匹配的子字符串。下标为1的元素是分组1捕获的文本，下标为2的元素是分组2捕获的文本，依次类推。如果匹配失败，则返回null。
+- regexp.exec(string)方法是正则表达式中最简单（和最快）的方法。如果匹配成功，返回true，否则，返回false。不要对这个方法使用g标识。
+```javascript
+// regexp.exec(string)，匹配邮箱
+var regexpEmail = /^(\w+)@(\w+\.\w{2,4})$/;
+var QQEmail = '924902324@qq.com';
+var gmail = 'liaolongdong@gmail.com';
+console.log(regexpEmail.exec(QQEmail));
 
+// 0: "924902324@qq.com"
+// 1: "924902324"
+// 2: "qq.com"
+// index: 0
+// input: "liaolongdong@gmail.com"
 
+console.log(regexpEmail.exec(gmail));
 
+// 0: "liaolongdong@gmail.com"
+// 1: "liaolongdong"
+// 2: "gmail.com"
+// index: 0
+// input: "liaolongdong@gmail.com"
 
+// regexp.test(string)
+var a = /&.+;/.test('Better &amp; Beans'); // true
 
+// 实现test方法
+RegExp.prototype.test = function(string){
+	return this.exec(string) !== null;
+};
+```
+6、String  
+操作字符串的方法大多数都存放在String.prototype原型对象中
+```javascript
+// string.charAt(pos)方法，返回string中pos位置的字符
+var name = 'Better';
+console.log(name.charAt(-1)); // ''
+console.log(name.charAt(1)); // 'e'
+console.log(name.charAt(8)); // ''
 
+// 实现charAt方法
+String.prototype.charAt = function(pos){
+	return this.slice(pos, pos + 1);
+};
 
+// string.charCodeAt(pos)方法，返回string中pos位置处的字符的字符编码。
+var name = 'Better';
+console.log(name.charCodeAt(-1)); // NaN
+console.log(name.charCodeAt(1)); // 101
+console.log(name.charCodeAt(name.length)); // NaN
 
+// string.concat(string...)方法，把字符串连接起来构造一个新字符串
+// 这个方法比较少用，因为连接字符串使用+运算符更方便
+var str = 'B'.concat('i', 'g'); // 'Big'
 
+// string.indexOf(searchString, position)，在string中查找另一个字符串searchString
+// 如果查找到，返回第一个匹配字符的位置，否则，返回-1
+var name = 'Better';
+console.log(name.indexOf('t')); // 2
+console.log(name.indexOf('t', 3)); // 3
+console.log(name.indexOf('Bet')); // 0
+console.log(name.indexOf('BB')); // -1
 
+// string.lastIndexOf(searchString, position)，该方法和indexOf方法类似
+// 这个方法是从字符串末尾开始查找而不是从头开始查找
+var name = 'Better';
+console.log(name.lastIndexOf('t')); // 3
+console.log(name.lastIndexOf('t', 2)); // 2
+console.log(name.lastIndexOf('BB')); // -1
 
+// string.localeCompare(that)，该方法用于比较两个字符串。
+console.log('a'.charCodeAt(0)); // 97
+console.log('A'.charCodeAt(0)); // 65
+console.log('a'.localeCompare('A')); // -1
+console.log('A'.localeCompare('a')); // 1
+console.log('a'.localeCompare('a')); // 0
+console.log('aa'.localeCompare('a')); // 1
 
+var m = ['AAA', 'A', 'aa', 'a', 'Aa', 'aaa'];
+m.sort(function(a, b){
+	return a.localeCompare(b);
+});
+console.log(m); // ["a", "A", "aa", "Aa", "aaa", "AAA"]
 
+// string.match(regexp)，如果没有g标识符，和使用regexp.exec(string)的结果相同
+// 如果regexp带有g标识符，那么它返回一个包含除捕获分组之外的所有匹配数组
+var text = '<html><body class="center"><p>' +
+			'This is <b>bold</b>!</p></body></html>';
+var tagsReg = /[^<>]+|<(\/?)([A-Za-z]+)([^<>]*)>/g;
+var a, i;
+a = text.match(tagsReg);
+for(i = 0, len = a.length; i < len; i ++){
+	console.log('[' + i + '] ' + a[i]);
+}
+// 结果：
+// [0] <html>
+// [1] <body class="center">
+// [2] <p>
+// [3] This is 
+// [4] <b>
+// [5] bold
+// [6] </b>
+// [7] !
+// [8] </p>
+// [9] </body>
+// [10] </html>
 
+// string.replace(searchValue, replaceValue)
+//该方法对string进行查找和替换操作，然后返回一个新的字符串。
+// searchValue可以是字符串或者正则表达式，如果为字符串，只会替换第一个匹配
+var string = 'fall_in_love_with';
+console.log(string.replace('_', '-')); // fall-in_love_with
 
+// 如果searchValue是一个正则表达式而且带有g标识符，那它将替换所有匹配
+// 如果没有带g标识符，那么它仅替换第一个匹配的位置。
+var string = 'fall_in_love_with';
+console.log(string.replace(/_/g, '-')); // fall-in-love-with
+console.log(string.replace(/_/, '-')); // fall-in_love_with
 
+var oldareacode = /\((\d{3})\)/g;
+console.log('(555)666-1212'.replace(oldareacode, '$1-')); // 555-666-1212
 
+// 如果replaceValue是一个函数，此方法将对每个匹配依次调用，
+// 并且该函数返回的字符串被用作替换文本。传递给这个函数的第一个参数是整个被匹配的文本。
+// 第二个参数是分组1捕获的文本，下一个参数是分组2捕获的文本，依次类推
+String.prototype.entityify = (function(){
+	var character = {
+		'<': '&lt;',
+		'>': '&gt;',
+		'&': '&amp;',
+		'"': '&quot;'
+	};
+	return function(){
+		return this.replace(/[<>&"]/g, function(c){
+			return character[c];
+		});
+	}
+}()); // 这里使用立即执行函数
+console.log('<&>'.entityify()); // &lt;&amp;&gt;
 
+// string.search(regexp)，该方法和indexOf类似，
+//区别是该方法只能接受一个正则表达式作为参数而不是字符串
+var strSay = 'I fell in love with you at first sight !';
+console.log(strSay.search(/love/)); // 10
+console.log(strSay.search(/hate/)); // -1
 
+// string.slice(start, end)，截取字符串
+var strSay = 'I fell in love with you at first sight !';
+console.log(strSay.slice(2, 23)); // fell in love with you
+console.log(strSay.slice(24)); // at first sigth
+console.log(strSay.slice(-7)); // sigth !
 
+// string.split(separator, limit)，该方法把字符串分割成一个字符串数组。
+// separator参数可以是字符串也可以是正则表达式
+// limit参数可选，该参数用来限制被分割的片段数量
+var digits = '0123456789';
+console.log(digits.split('')); // ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+console.log(digits.split('', 6)); // ["0", "1", "2", "3", "4", "5"]
 
+var ip = '192.168.1.0';
+var str = '|a|b|c|';
+console.log(ip.split('.')); // ["192", "168", "1", "0"]
+console.log(str.split('|')); // ["", "a", "b", "c", ""]
 
+var text = 'first, middle  , last';
+console.log(text.split(/\s*,\s*/)); // ["first", "middle", "last"]
 
+// PS：来自分组捕获的文本将会被包含在被分割的数组中
+var text = 'first, middle  , last';
+console.log(text.split(/\s*(,)\s*/)); // ["first", ",", "middle", ",", "last"]
 
+// string.substring(start, end)，该方法和slice方法一样，只是它不能处理负数参数，我们平时可以使用slice替代它
 
+// string.toLocaleLowerCase()和string.toLowerCase()，把字符串的字母转换成小写
+console.log('ABCabc'.toLocaleLowerCase()); // 'abcabc'
+console.log('ABCabc'.toLowerCase()); // 'abcabc'
 
+// string.toLocaleUpperCase()和string.toUpperCase()，把字符串的字母转换成大写
+console.log('ABCabc'.toLocaleUpperCase()); // 'ABCABC'
+console.log('ABCabc'.toUpperCase()); // 'ABCABC'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// String.fromCharCode(char...)
+console.log(String.fromCharCode(67, 97, 116)); // 'Cat'
+```
 
 
 
