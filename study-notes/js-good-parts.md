@@ -1398,10 +1398,93 @@ console.log('ABCabc'.toUpperCase()); // 'ABCABC'
 // String.fromCharCode(char...)
 console.log(String.fromCharCode(67, 97, 116)); // 'Cat'
 ```
+## JSON  
+JavaScript对象表示法（JavaScript Object Notation,简称JSON）是一种轻量级的数据交换格式。它基于JavaScript的对象字面量表示法。  
+JSON对象是一个容纳“名/值”对的无序集合。名字可以是任何字符串。值可以是任何类型的JSON值。  
+JSON数组是一个值的有序序列。其值可以是任何类型的JSON值，包括数组和对象。  
+JSON字符串要被包含在一对双引号之间。
+```javascript
+// 使用JSON.stringify()方法把对象或者数组转化为JSON字符串
+var obj = {
+	name: 'Better'	,
+	age: 24,
+	boy: true,
+	hobbyArr: ['movie', 'computer game'],
+	obj1: {},
+	func: function(){console.log(123);},
+	null: null,
+	undefined: undefined,
+	weakness: undefined
+};
+var arrObj = [
+	{
+		name: 'Better',
+		age: 24,
+		boy: true,
+		hobbyArr: ['movie', 'computer game'],
+		obj1: {},
+		func: function(){console.log(123);},
+		null: null,
+		undefined: undefined,
+		weakness: undefined
+	},
+	{
+		name: 'xiaoxin',
+		age: 20,
+		girl: true,
+		hobbyArr: ['movie', 'computer game'],
+		obj1: {},
+		func: function(){return 123;},
+		null: null,
+		undefined: undefined,
+		weakness: undefined
+	}
+];
+console.log(JSON.stringify(obj));
+// {
+//   "name": "Better",
+//   "age": 24,
+//   "boy": true,
+//   "hobbyArr": [
+//     "movie",
+//     "computer game"
+//   ],
+//   "obj1": {},
+//   "null": null
+// } 
+console.log(JSON.stringify(arrObj));
+// [
+//   {
+//     "name": "Better",
+//     "age": 24,
+//     "boy": true,
+//     "hobbyArr": [
+//       "movie",
+//       "computer game"
+//     ],
+//     "obj1": {},
+//     "null": null
+//   },
+//   {
+//     "name": "xiaoxin",
+//     "age": 20,
+//     "girl": true,
+//     "hobbyArr": [
+//       "movie",
+//       "computer game"
+//     ],
+//     "obj1": {},
+//     "null": null
+//   }
+// ]
+// 结论：JSON会忽视掉值为函数和undefined的变量
 
-
-
-
+// 使用JSON.parse()方法把JSON字符串转换成JS对象或数组
+var jsontext = '{"firstname":"Jesper","surname":"Aaberg","phone":["555-0100","555-0120"]}';
+var jsonstr = '{"name": "Better","age": 24,"boy": true,"hobbyArr": ["movie","computer game"],"obj1": {},"null": null}';
+console.log(JSON.parse(jsontext));
+console.log(JSON.parse(jsonstr));
+```
 
 
 
