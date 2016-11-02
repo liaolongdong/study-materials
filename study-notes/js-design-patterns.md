@@ -98,5 +98,37 @@ myBook._priviteMethod(); // 'this is privite method'
 优点：拥有门户大开型对象创建模式的所有优点，而且比后者少一个缺点。 
 缺点：这只是一种约定，只有在得到遵守时才有效果。主要适用于非敏感性的内部方法和属性。  
 3、作用域、嵌套函数和闭包  
-在JavaScript中，只有函数具有作用域，也就是说，在一个函数内部声明的变量在函数外部无法访问。
-
+在JavaScript中，只有函数具有作用域，也就是说，在一个函数内部声明的变量在函数外部无法访问。  
+```javascript
+// 在外部函数内部调用变量
+function outerFun(){
+	var a = 10;
+	function innerFun(){
+		a *= 2;
+	}
+	innerFun();
+	return a;
+}
+outerFun(); // 20
+outerFun(); // 20
+// 内部函数可以访问外部函数的变量，但变量并没有一直驻留在内存中
+```
+```javascript
+// 在外部函数外部内部函数调用变量
+function outerFun(){
+	var a = 10;
+	function innerFun(){
+		a *= 2;
+		return a;
+	}
+	return innerFun;
+}
+var fun = outerFun();
+fun(); // 20
+fun(); // 40
+fun(); // 80
+var fun1 = outerFun();
+fun1(); // 20
+```
+上述代码中，把内部函数（innerFun）的引用返回给变量fun。这个函数现在是在外部函数（outerFun）外部调用的，但它依然能够访问a变量。这是因为JavaScript中的作用域是词法作用域。也就是说，函数运行在定义它们的作用域中（本例中是outerFun内部的作用域），而不是运行在调用它们的作用域中。只要innerFun被定义在outerFun中，那么它就能访问outerFun作用域中定义的所有变量，即使outerFun执行结束了。  
+这就是闭包的一个例子。在outerFun返回后，它的作用域被保存下来了，但只有它返回的那个函数（innerFun）能够访问这个作用域。在这个示例中，fun和fun1各有这个作用域及变量a的一个副本，而且只有它们自己能对其进行修改。返回一个内嵌函数（确切的说应该是内嵌函数的引用）是创建闭包最常用的手段。
