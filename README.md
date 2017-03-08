@@ -7,7 +7,7 @@
 - [JavaScript 参考文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array "JavaScript 参考文档")
 - [JavaScript 标准参考教程（alpha）（阮一峰）](http://javascript.ruanyifeng.com/ "JavaScript 标准参考教程（alpha）（阮一峰）")
 - [ECMAScript 6入门 （阮一峰）](http://es6.ruanyifeng.com "ECMAScript 6入门 （阮一峰）")  
-- [大白话讲解Promise（一）(吕大豹)]（http://www.cnblogs.com/lvdabao/p/es6-promise-1.html "大白话讲解Promise（一）(吕大豹)"）
+- [大白话讲解Promise（一）(吕大豹)](http://www.cnblogs.com/lvdabao/p/es6-promise-1.html "大白话讲解Promise（一）(吕大豹)")
 - [学用 JavaScript 设计模式](http://www.oschina.net/translate/learning-javascript-design-patterns "学用JavaScript设计模式")
 
 ## jQuery及jQuery常用插件
@@ -15,8 +15,8 @@
 
 ## vue.js
 - [vue.js——60分钟快速入门](http://www.cnblogs.com/keepfool/p/5619070.html "vue.js——60分钟快速入门")
-- [vue.js(中文官网)]（https://cn.vuejs.org/v2/guide/ "vue.js官网"）
-- [element-ui(饿了么前端ui框架)]（http://element.eleme.io/#/zh-CN/component/installation "element-ui"）
+- [vue.js(中文官网)](https://cn.vuejs.org/v2/guide/ "vue.js官网")
+- [element-ui(饿了么前端ui框架)](http://element.eleme.io/#/zh-CN/component/installation "element-ui")
 
 ## nodeJS
 * [node入门（很经典，通俗易懂）](http://www.nodebeginner.org/index-zh-cn.html "node入门（很经典，通俗易懂）")
