@@ -17,6 +17,9 @@
 ## 浏览器中预览PDF文件无需使用JS（最常用的几种方法）
 - [浏览器预览PDF文件无需使用JS](https://pdfobject.com/static.html "浏览器预览PDF文件无需使用JS")
 
+## 懒加载
+- [懒加载图片？不要依赖 JavaScript ！(译)](http://www.jianshu.com/p/d6eecb826668# "懒加载图片？不要依赖 JavaScript ！(译)")
+
 ## vue.js
 - [vue.js——60分钟快速入门](http://www.cnblogs.com/keepfool/p/5619070.html "vue.js——60分钟快速入门")
 - [vue.js(中文官网)](https://cn.vuejs.org/v2/guide/ "vue.js官网")
