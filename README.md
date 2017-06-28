@@ -31,7 +31,12 @@
 * [nodejs官方文档（英文版v6.5.0）](https://nodejs.org/dist/latest-v6.x/docs/api/ "nodejs官方文档（英文版v6.5.0）")
 * [nodejs API文档（中文版v4.2.4）](http://nodeapi.ucdok.com/#/api/ "nodejs API文档（中文版v4.2.4）")
 
-## 前端自动化构建工具等  
+## react.js
+- [react.js中文官方文档](http://www.react-cn.com/index.html "react中文官方文档")
+- [react入门实例教程（阮一峰）](http://www.ruanyifeng.com/blog/2015/03/react.html "react入门实例教程（阮一峰）")
+- [react技术栈系列教程（阮一峰）](http://www.ruanyifeng.com/blog/2016/09/react-t0echnology-stack.html "react技术栈系列教程（阮一峰）")
+
+## 前端自动化构建工具等  
 - [阮一峰git教程](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html "阮一峰git教程")
 - [gulp详细入门教程](http://www.cnblogs.com/fengyuqing/p/5332112.html "gulp详细入门教程")
 - [React_webpack教程](https://fakefish.github.io/react-webpack-cookbook/Introduction-to-Webpack.html "React_webpack教程")
