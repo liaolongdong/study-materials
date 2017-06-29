@@ -34,7 +34,7 @@
 ## react.js
 - [react.js中文官方文档](http://www.react-cn.com/index.html "react中文官方文档")
 - [react入门实例教程（阮一峰）](http://www.ruanyifeng.com/blog/2015/03/react.html "react入门实例教程（阮一峰）")
-- [react技术栈系列教程（阮一峰）](http://www.ruanyifeng.com/blog/2016/09/react-t0echnology-stack.html "react技术栈系列教程（阮一峰）")
+- [react技术栈系列教程（阮一峰）](http://www.ruanyifeng.com/blog/2016/09/react-technology-stack.html "react技术栈系列教程（阮一峰）")
 - [react小书](http://huziketang.com/books/react/ "react小书")
 
 ## 前端自动化构建工具等  
