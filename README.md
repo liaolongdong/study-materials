@@ -36,6 +36,7 @@
 - [react入门实例教程（阮一峰）](http://www.ruanyifeng.com/blog/2015/03/react.html "react入门实例教程（阮一峰）")
 - [react技术栈系列教程（阮一峰）](http://www.ruanyifeng.com/blog/2016/09/react-technology-stack.html "react技术栈系列教程（阮一峰）")
 - [react小书 目前见过最好的入门教程](http://huziketang.com/books/react/ "react小书")
+- [react-router官网](https://reacttraining.com/react-router/web/example/auth-workflow "react-router")
 
 ## 前端自动化构建工具等  
 - [阮一峰git教程](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html "阮一峰git教程")
