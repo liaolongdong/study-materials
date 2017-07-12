@@ -4,7 +4,9 @@
 - [最全前端资源](http://www.cnblogs.com/jadeboy/p/5406592.html "最全前端资源")  
 - [菜鸟教程](http://www.runoob.com/ "菜鸟教程")
 
-## JavaScript  
+## JavaScript  
+- [JavaScript深入系列、JavaScript专题系列、ES6系列、React系列](https://github.com/mqyqingfeng/Blog "JavaScript深入系列、JavaScript专题系列、ES6系列、React系列")
+- [JavaScript语言精粹学习笔记（总结）](https://github.com/liaolongdong/study-materials/blob/master/study-notes/js-good-parts.md "JavaScript语言精粹学习笔记（总结）")
 - [JavaScript 参考文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array "JavaScript 参考文档")
 - [JavaScript 标准参考教程（alpha）（阮一峰）](http://javascript.ruanyifeng.com/ "JavaScript 标准参考教程（alpha）（阮一峰）")
 - [ECMAScript 6入门 （阮一峰）](http://es6.ruanyifeng.com "ECMAScript 6入门 （阮一峰）")  
