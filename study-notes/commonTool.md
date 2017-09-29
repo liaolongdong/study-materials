@@ -2,7 +2,7 @@
 
 ## 这些公用函数方法都使用es6语法
 
-## 毫秒数转换成日期（格式：yyyy-mm-dd、yyyy-mm-dd hh:mm、yyyy-mm-dd hh:mm:ss）
+### 毫秒数转换成日期（格式：yyyy-mm-dd、yyyy-mm-dd hh:mm、yyyy-mm-dd hh:mm:ss）
 ```javascript
 // 参数说明：timeStamp为时间戳毫秒数，type：1 对应日期格式yyyy-mm-dd hh:mm  2 对应日期格式yyyy-mm-dd hh:mm:ss
 export const formatDate = (timeStamp, type) => {
@@ -32,7 +32,7 @@ console.log(formatDate(1506664038876)); // 2017-09-29
 console.log(formatDate(1506664038876, 1)); // 2017-09-29 13:47
 console.log(formatDate(1506664038876, 2)); // 2017-09-29 13:47:18
 ```
-## 距离当前时间多久（几秒前、几分钟前、几小时前）
+### 距离当前时间多久（几秒前、几分钟前、几小时前）
 ```javascript
 export const durationTime = (timeStamp) => {
   let durationTimeStr = '';
@@ -53,7 +53,7 @@ export const durationTime = (timeStamp) => {
 console.log(durationTime(1506664038876)); // 10分钟前
 ```
 
-## 手机格式化（135 **** 1025、135-****-1025）
+### 手机格式化（135 **** 1025、135-****-1025）
 ```javascript
 // 参数说明：phoneNum 需要格式化的手机号 connector 格式化的连接字符
 export const formatPhoneNum = (phoneNum, connector) => {
@@ -68,7 +68,7 @@ console.log(formatPhoneNum('135****1025')); // '135 **** 1025'
 console.log(formatPhoneNum('135****1025', '-')); // '135-****-1025'
 ```
 
-## 获取url参数
+### 获取url参数
 ```javascript
 // 参数说明：name 要获取参数值的名称
 // 如https://www.baidu.com/?id=123456&name=xiaoxin
@@ -88,7 +88,7 @@ console.log(getUrlQueryString('id')); // '123456'
 console.log(getUrlQueryString('name')); // 'xiaoxin'
 ```
 
-## 移动端判断微信浏览器、ios、Android
+### 移动端判断微信浏览器、ios、Android
 ```javascript
 export const whatDevice = () => {
   let device = '';
@@ -106,7 +106,7 @@ export const whatDevice = () => {
 console.log(whatDevice()); // 'ios'
 ```
 
-## cookie的获取、添加、删除
+### cookie的获取、添加、删除
 ```javascript
 export const addCookie = (name, value, expiresHours) => {
   let cookieStr = '';
