@@ -1,6 +1,6 @@
 # 总结一下平时开发中经常使用到的公用方法
 
-## 这些公用函数方法都使用es6语法
+## 这些公用函数方法使用的是ES6的语法
 
 ### 毫秒数转换成日期（格式：yyyy-mm-dd、yyyy-mm-dd hh:mm、yyyy-mm-dd hh:mm:ss）
 ```javascript
