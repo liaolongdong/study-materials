@@ -145,4 +145,10 @@ let userName = 'liaoxiaoxin';
 addCookie('userName', userName);
 console.log(getCookie('userName')); // 'liaoxiaoxin'
 ```
+### 持续更新中。。。
+
+## 公用方法JS文件链接
+- [平时开发中常用的公用方法](https://github.com/liaolongdong/react-comment-demo/blob/master/src/commonTool.js '平时开发中常用的公用方法')
+
+
 
