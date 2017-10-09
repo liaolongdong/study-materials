@@ -4,7 +4,7 @@
 
 ### 毫秒数转换成日期（格式：yyyy-mm-dd、yyyy-mm-dd hh:mm、yyyy-mm-dd hh:mm:ss）
 ```javascript
-// 参数说明：timeStamp为时间戳毫秒数，type：1 对应日期格式yyyy-mm-dd hh:mm  2 对应日期格式yyyy-mm-dd hh:mm:ss
+// 参数说明：timeStamp为时间戳毫秒数，默认格式为：yyyy-mm-dd type：1 对应日期格式yyyy-mm-dd hh:mm  2 对应日期格式yyyy-mm-dd hh:mm:ss
 export const formatDate = (timeStamp, type) => {
   let formatDateStr = '';
   let date = new Date(timeStamp);
