@@ -57,7 +57,7 @@ console.log(durationTime(1506664038876)); // 10分钟前
 ```javascript
 export const checkPhoneNum = (phoneNum) => {
   let phoneReg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
-  return !phoneReg.test(phoneNum);
+  return phoneReg.test(phoneNum);
 }
 // 测试结果
 console.log(checkPhoneNum(13556891025)); // true
