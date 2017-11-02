@@ -155,6 +155,44 @@ let userName = 'liaoxiaoxin';
 addCookie('userName', userName);
 console.log(getCookie('userName')); // 'liaoxiaoxin'
 ```
+
+### 生成由数字和字母组合的随机字符串
+```javascript
+export const getNonceStr = (num) => {
+  let res = '';
+  let chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  for (let i = 0; i < num; i++) {
+    let index = Math.ceil(Math.random() * 35);
+    res += chars[index];
+  }
+  return res;
+};
+
+// 测试结果
+console.log(getNonceStr(28)); // 'KYN4UDPK1KXOSZ9W4UARD6RT79LE'
+```
+
+### 按自然顺序排序参数对象字符串，如连接方式userName=liaoxiaoxin&age=18
+```javascript
+export const getParamsStr = (paramsObj) => {
+  let paramsStr = '';
+  const keys = Object.keys(paramsObj).sort();
+  keys.map((key) => {
+    paramsStr += `&${key}=${paramsObj[key]}`;
+  });
+  paramsStr = paramsStr.substr(1);
+  return paramsStr;
+};
+
+// 测试结果
+let params = {
+  userName: 'xiaoxin',
+  age: 18,
+  position: 'front-end engineer'
+}
+console.log(getParamsStr(params)); // 
+```
+
 ### 持续更新中。。。
 
 ## 公用方法JS文件链接
