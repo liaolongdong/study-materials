@@ -190,7 +190,39 @@ let params = {
   age: 18,
   position: 'front-end engineer'
 }
-console.log(getParamsStr(params)); // 
+console.log(getParamsStr(params)); // age=18&position=front-end engineer&userName=xiaoxin
+```
+
+### 禁止输入框输入表情
+```javascript
+// 用苹果手机亲测好像只能防止输入部分表情
+export const maskEmoji = (text) => {
+  let regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
+  if (regRule.test(text)) {
+    text = text.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, '');
+    alert('不能输入表情');
+  }
+  return text;
+};
+```
+
+### 快速排序算法ES6简洁实现
+```javascript
+export const quickSort = (arr) => {
+  if (!arr.length) {
+    return [];
+  }
+  const [prev, ...rest] = arr;
+  return [
+    ...quickSort(rest.filter(value => value < prev)),
+    prev,
+    ...quickSort(rest.filter(value => value >= prev))
+  ];
+}
+
+// 测试结果
+let arr = [6, 2, 9, 4, 7, 1, 8, 3, 5, 6, 9, 3];
+console.log(quickSort(arr)); // [1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9]
 ```
 
 ### 持续更新中。。。
