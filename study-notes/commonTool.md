@@ -114,6 +114,8 @@ export const whatDevice = () => {
 }
 // 测试结果: 用的是PC端谷歌浏览器测试
 console.log(whatDevice()); // ''
+使用微信开发者工具测试
+console.log(whatDevice()); // 'wx'
 ```
 
 ### cookie的获取、添加、删除
