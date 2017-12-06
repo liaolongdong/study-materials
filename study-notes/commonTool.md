@@ -113,7 +113,7 @@ export const whatDevice = () => {
   return device;
 }
 // 测试结果: 用的是PC端谷歌浏览器测试
-console.log(whatDevice()); // 'ios'
+console.log(whatDevice()); // ''
 ```
 
 ### cookie的获取、添加、删除
