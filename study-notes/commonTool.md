@@ -78,6 +78,37 @@ console.log(formatPhoneNum('135****1025')); // '135 **** 1025'
 console.log(formatPhoneNum('135****1025', '-')); // '135-****-1025'
 ```
 
+### input输入框手机号码实时格式化
+```javascript
+// 该方法应在实时监听input输入框变化的回调函数中使用
+export const RTFormatPhoneNum = (prevPhoneNum, phoneNum) => {
+    // 判断是否为删除
+    if (prevPhoneNum < phoneNum) {
+      // 输入第4位数字和时前面加空格
+      if (phoneNum.length === 4) {
+        phoneNum = phoneNum.split('');
+        phoneNum.splice(3, 0, ' ');
+        phoneNum = phoneNum.join('');
+      }
+      // 输入第8位数字和时前面加空格
+      if (phoneNum.length === 9) {
+        phoneNum = phoneNum.split('');
+        phoneNum.splice(8, 0, ' ');
+        phoneNum = phoneNum.join('');
+      }
+    } else {
+      // 删除第4位数时同时删除前面的空格
+      if (phoneNum.length === 4) {
+        phoneNum = phoneNum.substr(0, 3);
+      }
+      // 删除第8位数时同时删除前面的空格
+      if (phoneNum.length === 9) {
+        phoneNum = phoneNum.substr(0, 8);
+      }
+    }
+}
+```
+
 ### 获取url参数
 ```javascript
 // 参数说明：name 要获取参数值的名称
