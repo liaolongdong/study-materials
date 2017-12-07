@@ -81,6 +81,8 @@ console.log(formatPhoneNum('135****1025', '-')); // '135-****-1025'
 ### input输入框手机号码实时格式化
 ```javascript
 // 该方法应在实时监听input输入框变化的回调函数中使用
+// 参数说明：prevPhoneNum为input框变化前的值， phoneNum为input当前的
+// 通过这两个值的长度大小进行比较，来区分变化是删除还是增加
 export const RTFormatPhoneNum = (prevPhoneNum, phoneNum) => {
     // 判断是否为删除
     if (prevPhoneNum < phoneNum) {
