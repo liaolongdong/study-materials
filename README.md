@@ -41,6 +41,9 @@
 - [react-router官网](https://reacttraining.com/react-router/web/example/auth-workflow "react-router")
 - [redux中文文档](http://www.redux.org.cn/ "redux中文文档")
 
+## IOS与JS交互
+- [iOS与网页JS交互，看我就够了](http://blog.csdn.net/LeaderQiu/article/details/51955956 " iOS与网页JS交互，看我就够了")
+
 ## 前端自动化构建工具等  
 - [阮一峰git教程](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html "阮一峰git教程")
 - [gulp详细入门教程](http://www.cnblogs.com/fengyuqing/p/5332112.html "gulp详细入门教程")
