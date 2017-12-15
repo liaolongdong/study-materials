@@ -41,6 +41,9 @@
 - [react-router官网](https://reacttraining.com/react-router/web/example/auth-workflow "react-router")
 - [redux中文文档](http://www.redux.org.cn/ "redux中文文档")
 
+## 服务端渲染（server-side render）
+- [教你如何搭建一个超完美的服务端渲染开发环境](http://www.jianshu.com/p/0ecd727107bb "教你如何搭建一个超完美的服务端渲染开发环境")
+
 ## IOS与JS交互
 - [iOS与网页JS交互，看我就够了](http://blog.csdn.net/LeaderQiu/article/details/51955956 " iOS与网页JS交互，看我就够了")
 
