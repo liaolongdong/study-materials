@@ -43,6 +43,7 @@
 
 ## 服务端渲染（server-side render）
 - [教你如何搭建一个超完美的服务端渲染开发环境](http://www.jianshu.com/p/0ecd727107bb "教你如何搭建一个超完美的服务端渲染开发环境")
+- [玩转 React 服务器端渲染](https://blog.coding.net/blog/React-server-rendering "玩转 React 服务器端渲染")
 
 ## IOS与JS交互
 - [iOS与网页JS交互，看我就够了](http://blog.csdn.net/LeaderQiu/article/details/51955956 " iOS与网页JS交互，看我就够了")
