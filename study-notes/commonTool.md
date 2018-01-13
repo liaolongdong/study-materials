@@ -53,6 +53,45 @@ export const durationTime = (timeStamp) => {
 console.log(durationTime(1506664038876)); // 10分钟前
 ```
 
+### 倒计时（距离现在还有00天00小时00分钟00秒）
+```javascript
+// 参数说明：remainTime: 剩余时间毫秒数，mountId:挂载dom节点
+let futureDateTime = Date.parse('2018-10-25');
+export const countDownNow = (remainTime, mountId) => {
+  let intDay, intHour, intMin, intSecond, timeStr;
+  let saveRemainTime = remainTime;
+  remainTime = remainTime - Date.now(); // 剩余时间减去当前时间
+  if(remainTime > 0) {
+    intDay = Math.floor(remainTime / (24 * 60 * 60 * 1000)); // 剩余天数
+    remainTime = remainTime - (intDay * 24 * 60 * 60 * 1000); // 减去剩余天数的毫秒数
+    intHour = Math.floor(remainTime / (60 * 60 * 1000)); // 剩余小时数
+    remainTime = remainTime - (intHour * 60 * 60 * 1000); // 减去剩余小时数的毫秒数
+    intMin = Math.floor(remainTime / (60 * 1000)); // 剩余分钟数
+    remainTime = remainTime - (intMin * 60 * 1000); // 减去剩余分钟数的毫秒数
+    intSecond = Math.floor(remainTime / 1000); // 剩余秒数
+    intDay < 10 && (intDay = '0' + intDay);
+    intHour < 10 && (intHour = '0' + intHour);
+    intMin < 10 && (intMin = '0' + intMin);
+    intSecond < 10 && (intSecond = '0' + intSecond);
+    timeStr = intDay + '天' + intHour + '时' + intMin + '分' + intSecond + '秒';
+    // document.getElementById(mountId).innerText = timeStr;
+    // 配合测试
+    console.log('剩余时间', timeStr);
+    setTimeout(function () {
+      countDownNow(saveRemainTime, mountId);
+    }, 1000);
+  } else {
+    console.log('666', timeStr);
+    // document.getElementById(mountId).innerText = '该时间点已过';
+  }
+}
+
+// 测试结果
+countDownNow(futureDateTime, 'mountId');
+// 剩余时间 284天15时34分26秒
+// 剩余时间 284天15时34分22秒 .....
+```
+
 ### 手机格式校验 ###
 ```javascript
 export const checkPhoneNum = (phoneNum) => {
