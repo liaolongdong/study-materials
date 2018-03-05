@@ -280,6 +280,35 @@ export const maskEmoji = (text) => {
 };
 ```
 
+### 快速排序传统实现方式
+```javascript
+function quickSort (arr) {
+	//如果数组只有一个数，就直接返回
+	if (arr.length <= 1) {
+		return arr;
+	}
+	//找到中间数的索引值，如果是浮点数，则向下取整
+	let index = Math.floor(arr.length / 2);
+	//找到中间数的值
+	let numValue = arr.splice(index, 1);
+	const left = [];
+	const right = [];
+	for (let i = 0; i < arr.length; i++) {
+		//基准点的左边的数传到左边数组
+		if (arr[i] < numValue) {
+			left.push(arr[i]);
+		} else {
+			//基准点的右边的数传到右边数组
+			right.push(arr[i]);
+		}
+	}
+	//递归不断重复比较
+	return quickSort(left).concat([numValue], quickSort(right));
+}
+// 测试结果
+console.log(quickSort([2, 1, 3, 5, 4])); // [1, 2, 3, 4, 5]
+```
+
 ### 快速排序算法ES6简洁实现
 ```javascript
 export const quickSort = (arr) => {
