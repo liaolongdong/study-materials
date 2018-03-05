@@ -305,6 +305,7 @@ function quickSort (arr) {
 	//递归不断重复比较
 	return quickSort(left).concat([numValue], quickSort(right));
 }
+
 // 测试结果
 console.log(quickSort([2, 1, 3, 5, 4])); // [1, 2, 3, 4, 5]
 ```
