@@ -4,7 +4,14 @@
 - [移动端大坑之点击穿透](https://blog.csdn.net/kao5585682/article/details/69529430 "移动端大坑之点击穿透")
 - [点击穿透原理及解决](https://blog.csdn.net/qq_17746623/article/details/55805425 "点击穿透原理及解决")
 
-## 2、上传图片格式转换
+## 2、上传图片格式转换(react)
+```html
+<input className='photo-upload-tip'
+        type='file'
+        ref={(input) => { this.fileInput = input; }}
+        onChange={this.handleUploaderImgChangeTest} />
+```
+```javascript
 function dataURItoBlob (dataURI) {
     let byteString = window.atob(dataURI.split(',')[1]);
     let mimeString = dataURI.split(',')[0].split(':')[1].split('')[0];
@@ -43,3 +50,4 @@ handleUploaderImgChangeTest = () => {
         console.log('error', e);
     });
  }
+```
