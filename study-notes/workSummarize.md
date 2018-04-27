@@ -12,6 +12,7 @@
         onChange={this.handleUploaderImgChangeTest} />
 ```
 ```javascript
+// base64格式转成blob格式
 function dataURItoBlob (dataURI) {
     let byteString = window.atob(dataURI.split(',')[1]);
     let mimeString = dataURI.split(',')[0].split(':')[1].split('')[0];
