@@ -59,3 +59,7 @@ window.addEventListener('popstate', () => { // 监听状态变化
     window.history.forward(1); // 跳转到下一个history
 });
 ```
+参考博客：
+- [利用js实现 禁用浏览器后退](https://blog.csdn.net/zc474235918/article/details/53138553)
+- [用（SPA）前端javascript如何阻止按下返回键页面回退](https://blog.csdn.net/cjd6568358/article/details/70077935)
+- [防止页面后退（使浏览器后退按钮失效）](https://www.cnblogs.com/webzwf/p/5714385.html)
