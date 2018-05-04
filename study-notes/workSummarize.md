@@ -52,3 +52,10 @@ handleUploaderImgChangeTest = () => {
     });
  }
 ```
+## 阻止浏览器当前页面回退操作
+```javascript
+window.history.pushState('forward', null, window.location.href); // 首先在当前页面创建一个新的history实体
+window.addEventListener('popstate', () => { // 监听状态变化
+    window.history.forward(1); // 跳转到下一个history
+});
+```
