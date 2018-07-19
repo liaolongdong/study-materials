@@ -52,14 +52,20 @@ handleUploaderImgChangeTest = () => {
     });
  }
 ```
-## 阻止浏览器当前页面回退操作
+## 3、阻止浏览器当前页面回退操作
 ```javascript
 window.history.pushState('forward', null, window.location.href); // 首先在当前页面创建一个新的history实体
 window.addEventListener('popstate', () => { // 监听状态变化
     window.history.forward(1); // 跳转到下一个history
 });
 ```
+## 4、移动端动态节点绑定事件ios点击失效
+原因是:
+- 在ios系统中,例如document,div,body这些本身并没有可以被点击的属性的元素不能作为托管点击事件的父元素。所以,用这样的方法进行事件托管，ios会获取不到你的document的点击事件，自然无法获取到你想要绑定的元素身上。
+- 解决办法就是把document换成你想要绑定元素的父元素上可以是最大的那个div，然后在最大元素的样式中加入cursor:pointer; 这个属性可以让父元素变成拥有可被点击属性的盒子，这样就可以解决动态数据无法绑定事件的问题。
+
 参考博客：
 - [利用js实现 禁用浏览器后退](https://blog.csdn.net/zc474235918/article/details/53138553)
 - [用（SPA）前端javascript如何阻止按下返回键页面回退](https://blog.csdn.net/cjd6568358/article/details/70077935)
 - [防止页面后退（使浏览器后退按钮失效）](https://www.cnblogs.com/webzwf/p/5714385.html)
+- [移动端动态节点绑定事件ios点击失效](https://blog.csdn.net/lunhui1994_/article/details/73801411)
