@@ -69,3 +69,10 @@ window.addEventListener('popstate', () => { // 监听状态变化
 - [用（SPA）前端javascript如何阻止按下返回键页面回退](https://blog.csdn.net/cjd6568358/article/details/70077935)
 - [防止页面后退（使浏览器后退按钮失效）](https://www.cnblogs.com/webzwf/p/5714385.html)
 - [移动端动态节点绑定事件ios点击失效](https://blog.csdn.net/lunhui1994_/article/details/73801411)
+
+## 5、图片加载出现403错误
+原因：在http中请求https图片可能会出现403错误
+解决方案：在html的head标签中加入<meta name="referrer" content="no-referrer" />
+
+## 6、在移动端中使用css3部分动画时可能会出现加载页面宽度抖动问题
+解决方案：在html顶级div中加入样式`overflow-x: hidden;`或者`overflow-x: hidden;`
