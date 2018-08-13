@@ -77,3 +77,10 @@ window.addEventListener('popstate', () => { // 监听状态变化
 
 ## 6、在移动端中使用css3部分动画时可能会出现加载页面宽度抖动问题
 解决方案：在html顶级div中加入样式`overflow-x: hidden;`或者`overflow-x: hidden;`
+
+## 7、微信公众号使用js-sdk开发常见问题及解决方案
+- https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115
+
+## 8、微信公众号使用js-sdk接口调用频次限制说明
+- https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433744592
+
