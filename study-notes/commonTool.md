@@ -150,7 +150,7 @@ export const RTFormatPhoneNum = (prevPhoneNum, phoneNum) => {
 }
 ```
 
-### 获取url参数
+### 获取url参数(使用正则表达式)
 ```javascript
 // 参数说明：name 要获取参数值的名称
 // 如https://www.baidu.com/?id=123456&name=xiaoxin
@@ -170,23 +170,86 @@ console.log(getUrlQueryString('id')); // '123456'
 console.log(getUrlQueryString('name')); // 'xiaoxin'
 ```
 
+### 获取url地址参数
+```js
+/** 
+ * @desc 将url参数转成对象返回
+ * @param url type: string (require) url字符串， 如：https://www.baidu.com/?id=123456&name=Better&age=18
+ * @param name type: string (no-require) 参数的key，如：id
+ * @return 参数对象或者某个参数的值
+ */
+export function urlParamToObj (url, name) {
+  let obj = {};
+  let a = document.createElement('a');
+  a.href = url;
+  let search = a.search;
+  a = null;
+  if (search.indexOf('?') === 0) {
+    let str = search.substr(1);
+    let arr = str.split('&');
+    arr.forEach((item, index) => {
+      let paramArr = item.split('=');
+      // 防止url编码，把编码也解析出来
+      obj[decodeURIComponent(paramArr[0])] = decodeURIComponent(paramArr[1]);
+    });
+  }
+  return name ? obj[name] : obj;
+}
+
+// 测试结果：
+console.log(urlParamToObj('https://www.baidu.com/?id=123456&name=Better&age=18')); // {id: "123456", name: "Better", age: "18"}
+console.log(urlParamToObj('https://www.baidu.com/?id=123456&name=Better&age=18', 'name')); // 'Better'
+```
+
+### 在url后面增加参数
+```js
+/** 
+ * @desc 在url上增加参数
+ * @param url type: string (require) url字符串， 如：https://www.baidu.com/?id=123456&name=Better&age=18
+ * @param param type: object (require)，如：{key: value}
+ * @return 返回拼接好的url字符串
+ */
+ export function addParamToUrl (url, param) {
+    let a = document.createElement('a');
+    a.href = url;
+    let arr = [];
+    let search = a.search;
+    if (param) {
+        Object.keys(param).forEach((item) => {
+            if (param[item] !== '' && param[item] !== null && param[item] !== undefined) {
+                arr.push(encodeURIComponent(item) + '=' + encodeURIComponent(param[item]));
+            }
+        });
+    }
+    if (arr.length !== 0) {
+        search += search === '' ? '?' + arr.join('&') : '&' + arr.join('&');
+    }
+    let resultUrl = a.origin + a.pathname + search + a.hash;
+    a = null;
+    return resultUrl;
+ }
+
+ // 测试结果：
+ addParamToUrl('https://www.baidu.com/?id=123456&name=Better&age=18', {from: 'wx'}); // "https://www.baidu.com/?id=123456&name=Better&age=18&from=wx"
+```
+
 ### 移动端判断微信浏览器、ios、Android
 ```javascript
 export const whatDevice = () => {
   let device = '';
   let ua = window.navigator.userAgent.toLowerCase();
-  if (/MicroMessenger/i.test(ua)) {
-    device = 'wx';
-  } else if (/(Android)/i.test(ua)) {
-    device = 'android';
+  if (/(Android)/i.test(ua)) {
+      device = 'android';
   } else if (/(iPhone|iPad|iPod|iOS)/i.test(ua)) {
-    device = 'ios';
+      device = 'ios';
+  } else if (/MicroMessenger/i.test(ua)) {
+      device = 'wx';
   }
   return device;
 }
 // 测试结果: 用的是PC端谷歌浏览器测试
 console.log(whatDevice()); // ''
-使用微信开发者工具测试
+// 使用微信开发者工具测试
 console.log(whatDevice()); // 'wx'
 ```
 
@@ -327,6 +390,48 @@ export const quickSort = (arr) => {
 // 测试结果
 let arr = [6, 2, 9, 4, 7, 1, 8, 3, 5, 6, 9, 3];
 console.log(quickSort(arr)); // [1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9]
+```
+
+### 数组对象排序
+```js
+/**
+ *  @desc   对象数组排序，例如按时间倒序
+ *  @param  排序字段名prop，排序方式type: 正序：positive， 倒序reverse 默认倒序
+ *  @return 数组排序比较函数
+ */
+export const objArrayCompareByProp = (prop, type = 'reverse') => {
+    return (obj1, obj2) => {
+        let val1 = obj1[prop];
+        let val2 = obj2[prop];
+        if (!isNaN(Number(val1)) && !isNaN(Number(val2))) {
+            val1 = Number(val1);
+            val2 = Number(val2);
+        }
+        if (type === 'positive') {
+            if (val1 > val2) {
+                return 1;
+            } else if (val1 < val2) {
+                return -1;
+            } else {
+                return 0;
+            }
+        } else {
+            if (val1 > val2) {
+                return -1;
+            } else if (val1 < val2) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    };
+};
+// 测试结果：
+let objArr = [{name: 'wangxiaowu', age: 20}, {name: 'liaoxiaoxin', age: 18}, {name: 'Better', age: 19}];
+console.log(JSON.stringify(objArr.sort(objArrayCompareByProp('name')))); // [{"name":"wangxiaowu","age":20},{"name":"liaoxiaoxin","age":18},{"name":"Better","age":19}]
+console.log(JSON.stringify(objArr.sort(objArrayCompareByProp('age')))); // [{"name":"wangxiaowu","age":20},{"name":"Better","age":19},{"name":"liaoxiaoxin","age":18}]
+console.log(JSON.stringify(objArr.sort(objArrayCompareByProp('age', 'positive')))); // [{"name":"liaoxiaoxin","age":18},{"name":"Better","age":19},{"name":"wangxiaowu","age":20}]
+
 ```
 
 ### 持续更新中。。。
