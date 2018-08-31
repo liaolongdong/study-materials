@@ -242,8 +242,12 @@ export const whatDevice = () => {
       device = 'android';
   } else if (/(iPhone|iPad|iPod|iOS)/i.test(ua)) {
       device = 'ios';
-  } else if (/MicroMessenger/i.test(ua)) {
+  } else if (/MicroMessenger/i.test(ua)) { // 这样写在ios手机上微信浏览器和其他浏览器输出都是ios
       device = 'wx';
+  }
+  // 单独再做一次判断
+  if (/MicroMessenger/i.test(ua)) {
+    device = 'wx';
   }
   return device;
 }
