@@ -73,6 +73,7 @@
 - [diffchecker（在线文件对比工具）](https://www.diffchecker.com/ "diffchecker（在线文件对比工具）")
 - [JSON数据格式化](http://www.bejson.com/jsonviewernew/ "JSON数据格式化")
 - [二维码生成器](http://cli.im/ "二维码生成器")
+- [图片压缩](https://tinypng.com/ "图片压缩")
 
 ## 设计工具
 - [APP设计工具--墨刀](https://modao.cc/ "APP设计工具--墨刀")
