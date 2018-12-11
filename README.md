@@ -44,6 +44,7 @@
 - [react小书 目前见过最好的入门教程](http://huziketang.com/books/react/ "react小书")
 - [react-router官网](https://reacttraining.com/react-router/web/example/auth-workflow "react-router")
 - [redux中文文档](http://www.redux.org.cn/ "redux中文文档")
+- [React 进阶之高阶组件](https://juejin.im/post/595243d96fb9a06bbd6f5ccd)
 
 ## react-native
 - [React-Native学习指南](https://github.com/reactnativecn/react-native-guide)
