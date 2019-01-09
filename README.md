@@ -20,6 +20,9 @@
 ## jQuery及jQuery常用插件
 - [拖拽排序jQuery.dragsort（中文文档）](http://cmsblogs.com/?p=1157 "拖拽排序jQuery.dragsort") [官网](http://dragsort.codeplex.com/ "官网")
 
+## JS常用特效资源网站
+- [JS常用demo资源网站](http://www.jsdaima.com/js/)
+
 ## 浏览器中预览PDF文件无需使用JS（最常用的几种方法）
 - [浏览器预览PDF文件无需使用JS](https://pdfobject.com/static.html "浏览器预览PDF文件无需使用JS")
 
