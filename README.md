@@ -17,6 +17,9 @@
 - [使用微信内置对象WeixinJSBridge调用微信支付](https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&index=6)
 - [使用微信sdk，chooseWXPay接口调用微信支付](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115) 
 
+## 移动端H5调试技巧
+- [移动端h5调试技巧](https://www.cnblogs.com/ytu2010dt/p/5848739.html)
+
 ## jQuery及jQuery常用插件
 - [拖拽排序jQuery.dragsort（中文文档）](http://cmsblogs.com/?p=1157 "拖拽排序jQuery.dragsort") [官网](http://dragsort.codeplex.com/ "官网")
 
