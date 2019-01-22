@@ -3,6 +3,7 @@
 - [前端学习资源网址大全](https://cnodejs.org/topic/56ef3edd532839c33a99d00e#5704db6f8a612c5559d16c84 "前端学习资源网址大全")
 - [最全前端资源](http://www.cnblogs.com/jadeboy/p/5406592.html "最全前端资源")  
 - [菜鸟教程](http://www.runoob.com/ "菜鸟教程")
+- [免费的编程中文书籍索引](https://github.com/justjavac/free-programming-books-zh_CN)
 
 ## JavaScript  
 - [JavaScript深入系列、JavaScript专题系列、ES6系列、React系列](https://github.com/mqyqingfeng/Blog "JavaScript深入系列、JavaScript专题系列、ES6系列、React系列")
