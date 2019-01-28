@@ -63,6 +63,9 @@
 - [next.js中文文档](http://nextjs.frontendx.cn/)
 - [next.js英文官方文档](https://nextjs.org/docs)
 
+## git
+- [解决git指令更新远程仓库github时每次都要输入用户名和密码问题](https://blog.csdn.net/qq_15809599/article/details/61239292)
+
 ## IOS与JS交互
 - [iOS与网页JS交互，看我就够了](http://blog.csdn.net/LeaderQiu/article/details/51955956 " iOS与网页JS交互，看我就够了")
 
