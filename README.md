@@ -90,6 +90,9 @@
 - [二维码生成器](http://cli.im/ "二维码生成器")
 - [图片压缩](https://tinypng.com/ "图片压缩")
 
+## 在线PS工具
+- [在线PS工具](http://www.uupoop.com/ps/)
+
 ## 设计工具
 - [APP设计工具--墨刀](https://modao.cc/ "APP设计工具--墨刀")
 
