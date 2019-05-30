@@ -24,6 +24,10 @@
 ## 移动端H5调试技巧
 - [移动端h5调试技巧](https://www.cnblogs.com/ytu2010dt/p/5848739.html)
 
+## 常见的移动端H5页面开发遇到的坑和解决办法
+
+- [常见的移动端H5页面开发遇到的坑和解决办法](https://www.cnblogs.com/LiuJL/p/7744473.html)
+
 ## jQuery及jQuery常用插件
 - [拖拽排序jQuery.dragsort（中文文档）](http://cmsblogs.com/?p=1157 "拖拽排序jQuery.dragsort") [官网](http://dragsort.codeplex.com/ "官网")
 
